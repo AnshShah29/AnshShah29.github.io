@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ansh Shah — Architectural Designer & Sustainability Thinker</title>
+  <meta name="description" content="Portfolio of Ansh Shah, Bachelor of Architectural Studies student at Carleton University specializing in sustainable design.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="sticky-nav">
+    <span class="nav-name">ANSH SHAH</span>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-label">— Portfolio 2026</p>
+      <h1>Ansh<br>Shah</h1>
+      <p class="hero-sub">Architectural Designer<br>& Sustainability Researcher</p>
+      <div class="hero-meta">
+        <span>Carleton University</span>
+        <span>Azrieli School of Architecture</span>
+        <span>BAS · Specialization in Design</span>
+      </div>
+      <a href="portfolio.html" class="cta-btn">View Full Portfolio →</a>
+    </div>
+    <div class="hero-visual">
+      <!-- SVG decorative element: architectural grid / axonometric lines -->
+      <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+        <!-- Grid pattern -->
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#C8BFB4" stroke-width="0.5" opacity="0.4"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+        
+        <!-- Architectural lines -->
+        <line x1="50" y1="100" x2="150" y2="100" stroke="#C4622D" stroke-width="1"/>
+        <line x1="150" y1="100" x2="150" y2="200" stroke="#C4622D" stroke-width="1"/>
+        <line x1="50" y1="200" x2="150" y2="200" stroke="#C4622D" stroke-width="1"/>
+        <line x1="50" y1="100" x2="50" y2="200" stroke="#C4622D" stroke-width="1"/>
+        
+        <!-- Isometric cube outline -->
+        <polygon points="280,150 350,200 280,250 210,200" fill="none" stroke="#1A1A18" stroke-width="1" opacity="0.6"/>
+        <polygon points="210,200 280,250 280,350 210,300" fill="none" stroke="#1A1A18" stroke-width="1" opacity="0.6"/>
+        <polygon points="280,250 350,200 350,300 280,350" fill="none" stroke="#1A1A18" stroke-width="1" opacity="0.6"/>
+        
+        <!-- Compass rose -->
+        <circle cx="320" cy="420" r="40" fill="none" stroke="#C8BFB4" stroke-width="0.5"/>
+        <line x1="320" y1="380" x2="320" y2="460" stroke="#C8BFB4" stroke-width="0.5"/>
+        <line x1="280" y1="420" x2="360" y2="420" stroke="#C8BFB4" stroke-width="0.5"/>
+        <polygon points="320,380 325,400 320,395 315,400" fill="#C4622D"/>
+        <polygon points="360,420 340,415 340,425 360,420" fill="#C8BFB4"/>
+        
+        <!-- Decorative dots -->
+        <circle cx="80" cy="350" r="3" fill="#C4622D" opacity="0.6"/>
+        <circle cx="100" cy="380" r="2" fill="#C8BFB4" opacity="0.6"/>
+        <circle cx="120" cy="360" r="2.5" fill="#C8BFB4" opacity="0.6"/>
+        <circle cx="90" cy="410" r="2" fill="#C8BFB4" opacity="0.6"/>
+        <circle cx="110" cy="430" r="3" fill="#C4622D" opacity="0.6"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Selected Work Section -->
+  <section class="work" id="work">
+    <h2 class="section-label">— Selected Work</h2>
+    <div class="projects-grid">
+
+      <article class="project-card" data-index="01">
+        <a href="portfolio.html#project-1">
+          <div class="card-image">
+            <!-- Placeholder gradient - replace with actual image -->
+            <div class="placeholder-gradient gradient-1"></div>
+          </div>
+          <div class="card-info">
+            <span class="card-num">01</span>
+            <h3>The Hearth & The Habitat</h3>
+            <p>Chimney Swift Center & Community Café<br>Urban Infill · Ottawa</p>
+            <span class="card-tools">Rhino · Grasshopper · D5 Render</span>
+          </div>
+        </a>
+      </article>
+
+      <article class="project-card" data-index="02">
+        <a href="portfolio.html#project-2">
+          <div class="card-image">
+            <div class="placeholder-gradient gradient-2"></div>
+          </div>
+          <div class="card-info">
+            <span class="card-num">02</span>
+            <h3>Soil & Sustainability Hub</h3>
+            <p>Interdisciplinary Research & Community Facility<br>Ottawa</p>
+            <span class="card-tools">Rhino · D5 Render · QGIS</span>
+          </div>
+        </a>
+      </article>
+
+      <article class="project-card" data-index="03">
+        <a href="portfolio.html#project-3">
+          <div class="card-image">
+            <div class="placeholder-gradient gradient-3"></div>
+          </div>
+          <div class="card-info">
+            <span class="card-num">03</span>
+            <h3>Urban Housing Study</h3>
+            <p>Affordable Housing Prototype<br>Toronto</p>
+            <span class="card-tools">Rhino · Revit · Enscape</span>
+          </div>
+        </a>
+      </article>
+
+      <article class="project-card" data-index="04">
+        <a href="portfolio.html#project-4">
+          <div class="card-image">
+            <div class="placeholder-gradient gradient-4"></div>
+          </div>
+          <div class="card-info">
+            <span class="card-num">04</span>
+            <h3>Community Pavilion</h3>
+            <p>Public Space Design<br>Ottawa</p>
+            <span class="card-tools">AutoCAD · Lumion · Photoshop</span>
+          </div>
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Ansh Shah &nbsp;|&nbsp; <a href="mailto:ansh-shah@outlook.com">ansh-shah@outlook.com</a></p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>
