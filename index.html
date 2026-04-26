@@ -110,16 +110,19 @@
       display: flex;
       min-height: 90vh;
       background: var(--bg);
-      border-bottom: 3px solid var(--ink);
+      padding: 2rem;
+      gap: 2rem;
     }
 
     .intro-left {
       flex: 1;
-      padding: 4rem 4rem 4rem 3rem;
+      padding: 3rem 3rem 3rem 2rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 1.25rem;
+      background: var(--bg);
+      border: 3px solid var(--ink);
     }
 
     .intro-left h1 {
@@ -139,10 +142,11 @@
     }
 
     .intro-photo-container {
-      flex: 1;
+      flex: 0 0 45%;
       position: relative;
       overflow: hidden;
       background: var(--ink);
+      border: 3px solid var(--ink);
     }
 
     .intro-photo-container img {
@@ -315,16 +319,19 @@
     @media (max-width: 768px) {
       .intro-strip {
         flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
       }
       .intro-photo-container {
-        height: 55vw;
-        min-height: 220px;
+        flex: none;
+        height: 50vw;
+        min-height: 200px;
         order: -1;
-        border-bottom: 3px solid var(--ink);
+        border: 3px solid var(--ink);
       }
       .intro-left { 
-        border-right: none; 
-        padding: 2rem 1.5rem;
+        border: 3px solid var(--ink);
+        padding: 1.5rem;
       }
       .projects-grid { grid-template-columns: 1fr; }
       .project-tile { border-right: none; aspect-ratio: 4/3; }
