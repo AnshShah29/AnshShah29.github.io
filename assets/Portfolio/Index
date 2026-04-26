@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ansh Shah — Architectural Designer</title>
+  <meta name="description" content="Portfolio of Ansh Shah, Bachelor of Architectural Studies at Carleton University, specializing in sustainable design.">
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+ 
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      --bg:     #F5F2ED;
+      --ink:    #1A1A18;
+      --accent: #C4622D;
+      --line:   #C8BFB4;
+      --white:  #FFFFFF;
+      --fd:     'Cormorant Garamond', serif;
+      --fm:     'Space Mono', monospace;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--fd);
+      -webkit-font-smoothing: antialiased;
+    }
+ 
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+ 
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 56px;
+      background: var(--ink);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+ 
+    .nav-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+ 
+    .nav-left .nav-sub {
+      font-family: var(--fm);
+      font-size: 8px;
+      letter-spacing: 0.18em;
+      color: var(--line);
+      text-transform: uppercase;
+    }
+ 
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--fd);
+      font-size: 1.45rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      white-space: nowrap;
+    }
+ 
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0;
+    }
+ 
+    .nav-links li a {
+      display: block;
+      font-family: var(--fm);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--line);
+      padding: 6px 14px;
+      border: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+ 
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: var(--white);
+      border-color: rgba(255,255,255,0.25);
+    }
+ 
+    .nav-links li a.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+ 
+    /* ─── INTRO STRIP ─── */
+    .intro-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 340px;
+      border-bottom: 3px solid var(--ink);
+    }
+ 
+    .intro-left {
+      padding: 3rem 3rem 3rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.25rem;
+      border-right: 3px solid var(--ink);
+    }
+ 
+    .intro-left h1 {
+      font-family: var(--fd);
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+    }
+ 
+    .intro-left p {
+      font-family: var(--fd);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.75;
+      opacity: 0.75;
+      max-width: 36ch;
+    }
+ 
+    .intro-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+ 
+    .btn-primary {
+      font-family: var(--fm);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 9px 20px;
+      background: var(--ink);
+      color: var(--white);
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+ 
+    .btn-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+ 
+    .icon-links {
+      display: flex;
+      gap: 10px;
+    }
+ 
+    .icon-links a {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+ 
+    .icon-links a:hover { background: var(--accent); }
+ 
+    .intro-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--ink);
+    }
+ 
+    .intro-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      opacity: 0.88;
+      filter: grayscale(20%);
+      transition: transform 0.8s ease, opacity 0.4s ease;
+    }
+ 
+    .intro-right:hover img {
+      transform: scale(1.04);
+      opacity: 1;
+      filter: grayscale(0%);
+    }
+ 
+    /* Fallback gradient if no photo */
+    .intro-right::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #2a2a28 0%, #1A1A18 100%);
+      z-index: 0;
+    }
+ 
+    .intro-right img { position: relative; z-index: 1; }
+ 
+    /* ─── PROJECT GRID ─── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+ 
+    .project-tile {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 3px solid var(--ink);
+      border-right: 3px solid var(--ink);
+      aspect-ratio: 16 / 9;
+      background: var(--ink);
+      cursor: pointer;
+    }
+ 
+    .project-tile:nth-child(even) {
+      border-right: none;
+    }
+ 
+    .project-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+      transition: filter 0.5s ease, transform 0.6s ease;
+    }
+ 
+    .project-tile:hover img {
+      filter: grayscale(0%);
+      transform: scale(1.04);
+    }
+ 
+    /* overlay */
+    .tile-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,26,24,0.85) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.75rem 2rem;
+    }
+ 
+    .project-tile:hover .tile-overlay {
+      opacity: 1;
+    }
+ 
+    .tile-num {
+      font-family: var(--fm);
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+ 
+    .tile-title {
+      font-family: var(--fd);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 0.35rem;
+    }
+ 
+    .tile-desc {
+      font-family: var(--fd);
+      font-style: italic;
+      font-size: 0.9rem;
+      color: rgba(245,242,237,0.75);
+      margin-bottom: 0.6rem;
+    }
+ 
+    .tile-tools {
+      font-family: var(--fm);
+      font-size: 8px;
+      letter-spacing: 0.12em;
+      color: var(--line);
+    }
+ 
+    /* Always-visible label strip at bottom (subtle) */
+    .tile-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.65rem 1.25rem;
+      background: rgba(26,26,24,0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: opacity 0.3s;
+    }
+ 
+    .project-tile:hover .tile-label {
+      opacity: 0;
+    }
+ 
+    .tile-label-name {
+      font-family: var(--fd);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+ 
+    .tile-label-num {
+      font-family: var(--fm);
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+    }
+ 
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+ 
+    footer p, footer a {
+      font-family: var(--fm);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      color: var(--line);
+      opacity: 0.7;
+    }
+ 
+    footer a:hover { color: var(--accent); opacity: 1; }
+ 
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .intro-strip {
+        grid-template-columns: 1fr;
+      }
+      .intro-right {
+        height: 55vw;
+        min-height: 220px;
+        border-top: 3px solid var(--ink);
+        border-right: none;
+      }
+      .intro-left { border-right: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-tile { border-right: none; aspect-ratio: 4/3; }
+      .project-tile:nth-child(even) { border-right: none; }
+      .nav-center { display: none; }
+      nav { padding: 0 1.25rem; }
+    }
+ 
+    @media (max-width: 480px) {
+      .intro-left { padding: 2rem 1.25rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+ 
+  <!-- NAV -->
+  <nav>
+    <div class="nav-left">
+      <span class="nav-sub">BAS · Architectural Studies</span>
+      <span class="nav-sub">Carleton University · 2026</span>
+    </div>
+    <span class="nav-center">ANSH SHAH</span>
+    <ul class="nav-links">
+      <li><a href="#work" class="active">Work</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="mailto:ansh-shah@outlook.com">Contact</a></li>
+    </ul>
+  </nav>
+ 
+  <!-- INTRO STRIP -->
+  <div class="intro-strip">
+    <div class="intro-left">
+      <h1>Welcome</h1>
+      <p>I am an architectural designer focused on sustainable systems and community-driven design, currently completing my Bachelor of Architectural Studies at Carleton University's Azrieli School of Architecture. This site outlines my portfolio and selected works.</p>
+      <div class="intro-actions">
+        <a href="portfolio.html" class="btn-primary">View Portfolio</a>
+        <div class="icon-links">
+          <!-- Email -->
+          <a href="mailto:ansh-shah@outlook.com" title="Email">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/ansh-shah-31157129a/" target="_blank" title="LinkedIn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <!-- Phone placeholder -->
+          <a href="tel:4373502906" title="Phone">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.6 19.79 19.79 0 0 1 1.61 5a2 2 0 0 1 1.99-2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.09a16 16 0 0 0 6 6l.91-1.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="intro-right">
+      <img src="assets/images/IntroPhoto.jpg" alt="Ansh Shah">
+    </div>
+  </div>
+ 
+  <!-- PROJECT GRID -->
+  <section id="work">
+    <div class="projects-grid">
+ 
+      <a class="project-tile" href="portfolio.html">
+        <img src="assets/images/Page_7.jpg" alt="Orkidstræ" loading="lazy">
+        <div class="tile-label">
+          <span class="tile-label-name">Orkidstræ</span>
+          <span class="tile-label-num">01</span>
+        </div>
+        <div class="tile-overlay">
+          <span class="tile-num">01</span>
+          <h2 class="tile-title">Orkidstræ</h2>
+          <p class="tile-desc">Institutional Design · Ottawa</p>
+          <span class="tile-tools">Revit · Rhino · D5 Render · Illustrator · Photoshop · InDesign</span>
+        </div>
+      </a>
+ 
+      <a class="project-tile" href="portfolio.html">
+        <img src="assets/images/Page_3.jpg" alt="The Amik Node" loading="lazy">
+        <div class="tile-label">
+          <span class="tile-label-name">The Amik Node</span>
+          <span class="tile-label-num">02</span>
+        </div>
+        <div class="tile-overlay">
+          <span class="tile-num">02</span>
+          <h2 class="tile-title">The Amik Node</h2>
+          <p class="tile-desc">Ecological Design Studio · Ottawa</p>
+          <span class="tile-tools">Rhino · D5 Render · Photoshop · Illustrator · InDesign</span>
+        </div>
+      </a>
+ 
+      <a class="project-tile" href="portfolio.html">
+        <img src="assets/images/Page_13.jpg" alt="Chimney Swift Center" loading="lazy">
+        <div class="tile-label">
+          <span class="tile-label-name">Chimney Swift Center & Community Café</span>
+          <span class="tile-label-num">03</span>
+        </div>
+        <div class="tile-overlay">
+          <span class="tile-num">03</span>
+          <h2 class="tile-title">Chimney Swift Center<br>& Community Café</h2>
+          <p class="tile-desc">Urban Infill · Ottawa</p>
+          <span class="tile-tools">Rhino · D5 Render · Photoshop · Illustrator · InDesign</span>
+        </div>
+      </a>
+ 
+      <a class="project-tile" href="portfolio.html">
+        <img src="assets/images/Page_16.jpg" alt="Dominion Arboretum Installation" loading="lazy">
+        <div class="tile-label">
+          <span class="tile-label-name">Dominion Arboretum Installation</span>
+          <span class="tile-label-num">04</span>
+        </div>
+        <div class="tile-overlay">
+          <span class="tile-num">04</span>
+          <h2 class="tile-title">Dominion Arboretum<br>Installation</h2>
+          <p class="tile-desc">Landscape Installation · Ottawa</p>
+          <span class="tile-tools">Rhino · Illustrator · Photoshop · InDesign</span>
+        </div>
+      </a>
+ 
+    </div>
+  </section>
+ 
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Ansh Shah &nbsp;·&nbsp; BAS Architectural Studies, Carleton University</p>
+    <p>
+      <a href="mailto:ansh-shah@outlook.com">ansh-shah@outlook.com</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/ansh-shah-31157129a/" target="_blank">LinkedIn</a>
+    </p>
+  </footer>
+ 
+</body>
+</html>
