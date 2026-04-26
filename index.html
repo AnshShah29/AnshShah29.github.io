@@ -110,19 +110,18 @@
       display: flex;
       min-height: 90vh;
       background: var(--bg);
-      padding: 2rem;
-      gap: 2rem;
+      border: 3px solid var(--ink);
+      box-sizing: border-box;
     }
 
     .intro-left {
       flex: 1;
-      padding: 3rem 3rem 3rem 2rem;
+      padding: 4rem 4rem 4rem 3rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
       gap: 1.25rem;
-      background: var(--bg);
-      border: 3px solid var(--ink);
+      background: transparent;
     }
 
     .intro-left h1 {
@@ -145,8 +144,7 @@
       flex: 0 0 45%;
       position: relative;
       overflow: hidden;
-      background: var(--ink);
-      border: 3px solid var(--ink);
+      background: transparent;
     }
 
     .intro-photo-container img {
@@ -165,13 +163,9 @@
       filter: grayscale(0%);
     }
 
-    /* Fallback gradient if no photo */
+    /* Remove fallback gradient - photo sits on beige background */
     .intro-photo-container::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #2a2a28 0%, #1A1A18 100%);
-      z-index: 0;
+      display: none;
     }
 
     .intro-photo-container img { position: relative; z-index: 1; }
@@ -319,19 +313,16 @@
     @media (max-width: 768px) {
       .intro-strip {
         flex-direction: column;
-        padding: 1rem;
-        gap: 1rem;
+        min-height: auto;
       }
       .intro-photo-container {
         flex: none;
-        height: 50vw;
-        min-height: 200px;
+        height: 60vw;
+        min-height: 250px;
         order: -1;
-        border: 3px solid var(--ink);
       }
       .intro-left { 
-        border: 3px solid var(--ink);
-        padding: 1.5rem;
+        padding: 2rem 1.5rem;
       }
       .projects-grid { grid-template-columns: 1fr; }
       .project-tile { border-right: none; aspect-ratio: 4/3; }
