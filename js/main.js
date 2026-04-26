@@ -2,7 +2,6 @@
  * Ansh Shah Portfolio - Main JavaScript
  * Page load animations and interactions
  */
-
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize staggered animations for hero elements
   initHeroAnimations();
@@ -94,3 +93,4 @@ function initProjectCards() {
 
 // Run project card initialization
 initProjectCards();
+
