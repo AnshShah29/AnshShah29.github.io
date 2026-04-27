@@ -13,8 +13,8 @@
   --white:        #FFFFFF;
   
   /* Typography */
-  --font-display: 'Cormorant Garamond', serif;
-  --font-mono:    'Space Mono', monospace;
+  --font-display: 'Archivo', sans-serif;
+  --font-mono:    'Archivo', sans-serif;
 }
 
 /* Reset & Base */

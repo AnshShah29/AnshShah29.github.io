@@ -8,19 +8,19 @@
  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
  
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  
     :root {
       --bg:     #000000;
-      --ink:    #F5F2ED;
+      --ink:    #000000;
       --accent: #C4622D;
       --line:   #C8BFB4;
       --white:  #FFFFFF;
-      --fd:     'Cormorant Garamond', serif;
-      --fm:     'Space Mono', monospace;
+      --fd:     'Archivo', sans-serif;
+      --fm:     'Archivo', sans-serif;
     }
  
     html { scroll-behavior: smooth; }
@@ -40,9 +40,9 @@
       position: sticky;
       top: 0;
       z-index: 300;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       padding: 0 2.5rem;
       height: 200px;
       background: #1A1A18;
@@ -53,6 +53,7 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
+      justify-content: center;
     }
  
     .nav-left .nav-sub {
@@ -61,12 +62,17 @@
       letter-spacing: 0.18em;
       color: var(--line);
       text-transform: uppercase;
+      text-align: left;
     }
  
     .nav-center {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+ 
+    .nav-center .nav-name {
       font-family: var(--fd);
       font-size: 4rem;
       font-weight: 600px;
@@ -75,13 +81,13 @@
       white-space: nowrap;
     }
  
-    .nav-links {
+    .nav-center .nav-links {
       display: flex;
       list-style: none;
       gap: 0;
     }
  
-    .nav-links li a {
+    .nav-center .nav-links li a {
       display: block;
       font-family: var(--fm);
       font-size: 9px;
@@ -93,13 +99,13 @@
       transition: color 0.2s, border-color 0.2s;
     }
  
-    .nav-links li a:hover,
-    .nav-links li a.active {
+    .nav-center .nav-links li a:hover,
+    .nav-center .nav-links li a.active {
       color: var(--white);
       border-color: rgba(255,255,255,0.25);
     }
  
-    .nav-links li a.active {
+    .nav-center .nav-links li a.active {
       background: var(--accent);
       border-color: var(--accent);
       color: var(--white);
@@ -108,13 +114,13 @@
     /* ─── INTRO STRIP ─── */
     .intro-strip {
       width: calc(100% - 32px);
-      margin: 16px;
+      margin: 16px 16px 16px 16px;
       background: #F5F2ED;
       border: 3px solid #1A1A18;
       box-sizing: border-box;
       display: grid;
       grid-template-columns: 55% 45%;
-      min-height: 90vh;
+      min-height: calc(90vh - 40px);
       align-items: stretch;
     }
 
@@ -195,6 +201,8 @@
       aspect-ratio: 16 / 9;
       background: var(--ink);
       cursor: pointer;
+      margin: 1px;
+      
     }
  
     .project-tile:nth-child(even) {
@@ -361,20 +369,24 @@
     <div class="nav-left">
       <span class="nav-sub">BAS · Architectural Studies</span>
       <span class="nav-sub">Carleton University · 2026</span>
+      <span class="nav-sub">Selected Works - 2025/2026</span>
     </div>
-    <span class="nav-center">ANSH SHAH</span>
-    <ul class="nav-links">
-      <li><a href="#work" class="active">Work</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="mailto:ansh-shah@outlook.com">Contact</a></li>
-    </ul>
+    <div class="nav-center">
+      <span class="nav-name">ANSH SHAH</span>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Work</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="resume.html">Resume</a></li>
+        <li><a href="mailto:ansh-shah@outlook.com">Contact</a></li>
+      </ul>
+    </div>
   </nav>
  
   <!-- INTRO STRIP -->
   <div class="intro-strip">
     <div class="intro-left">
       <h1>Welcome</h1>
-      <p>I am an architectural designer currently based out of Toronto, Canada. This website outlines my portfolio and is a compilation of my professional experiences and services.</p>
+      <p>I am an architectural design student based in Ottawa and Toronto, currently completing my Bachelor of Architectural Studies at Carleton University's Azrieli School of Architecture. This website outlines my portfolio and is a compilation of my academic projects and design work.</p>
       <div class="intro-actions">
         <a href="portfolio.html" class="btn-primary">View Portfolio</a>
         <div class="icon-links">

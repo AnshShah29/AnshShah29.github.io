@@ -6,6 +6,39 @@
 let pageFlip = null;
 let totalFlipbookPages = 0;
 
+// Page flip sound - using MP3 file
+let flipAudio = null;
+
+function initAudio() {
+  try {
+    flipAudio = new Audio('Paper_Flip.mp3');
+    flipAudio.preload = 'auto';
+  } catch (e) {
+    console.warn('Audio not supported');
+  }
+}
+
+function playFlipSound() {
+  if (!flipAudio) return;
+  
+  // Clone the audio to allow overlapping plays
+  const sound = flipAudio.cloneNode();
+  sound.volume = 0.7;
+  
+  // Skip first 0.5 sec and trim last 0.5 sec
+  sound.currentTime = 0.5;
+  
+  sound.play().catch(e => console.warn('Audio play failed:', e));
+  
+  // Stop early to trim the last 0.5 seconds
+  const checkEnd = setInterval(() => {
+    if (sound.duration && sound.currentTime >= sound.duration - 0.5) {
+      sound.pause();
+      clearInterval(checkEnd);
+    }
+  }, 50);
+}
+
 const coverPage = 'assets/images/Cover_Page.jpg';
 const endPage = 'assets/images/End_Page.jpg';
 const spreadPages = [
@@ -28,6 +61,16 @@ const spreadPages = [
 
 document.addEventListener('DOMContentLoaded', async () => {
   if (!document.getElementById('flipbook')) return;
+
+  // Initialize audio for page flip sounds
+  initAudio();
+  
+  // Add click handler to enable audio (browser autoplay policy)
+  document.addEventListener('click', () => {
+    if (audioContext && audioContext.state === 'suspended') {
+      audioContext.resume();
+    }
+  }, { once: true });
 
   await loadJpgPages();
 });
@@ -164,12 +207,15 @@ function initPageFlip() {
     maxHeight: 1350,
     showCover: true,
     drawShadow: true,
-    flippingTime: 620,
+    flippingTime: 1000,
     usePortrait: false,
     startZIndex: 0,
     autoSize: true,
-    maxShadowOpacity: 0.16,
-    mobileScrollSupport: true
+    maxShadowOpacity: 0.15, // Reduced to see page underneath better
+    mobileScrollSupport: true,
+    hard: 'none',
+    speed: 10,
+    block: false // Allow seeing underneath pages
   });
 
   pageFlip.loadFromHTML(document.querySelectorAll('.page'));
@@ -191,13 +237,19 @@ function setupControls() {
 
   if (btnPrev) {
     btnPrev.addEventListener('click', () => {
-      if (pageFlip) pageFlip.flipPrev();
+      if (pageFlip) {
+        playFlipSound();
+        pageFlip.flipPrev();
+      }
     });
   }
 
   if (btnNext) {
     btnNext.addEventListener('click', () => {
-      if (pageFlip) pageFlip.flipNext();
+      if (pageFlip) {
+        playFlipSound();
+        pageFlip.flipNext();
+      }
     });
   }
 }
@@ -254,10 +306,12 @@ function setupKeyboardNav() {
     if (!pageFlip) return;
 
     if (event.key === 'ArrowRight') {
+      playFlipSound();
       pageFlip.flipNext();
     }
 
     if (event.key === 'ArrowLeft') {
+      playFlipSound();
       pageFlip.flipPrev();
     }
   });
