@@ -25,38 +25,40 @@
     </ul>
   </nav>
 
-  <!-- Flipbook Section -->
-  <section class="flipbook-section">
-    <div class="flipbook-header">
-      <p class="hero-label">- Full Portfolio</p>
-      <h2>Ansh Shah / 2026</h2>
-    </div>
-
-    <div id="loading-state" class="portfolio-loading">
-      <div class="loader-ring"></div>
-      <p>Loading portfolio pages...</p>
-    </div>
-
-    <div class="flipbook-stage">
-      <button id="btn-prev" class="flipbook-arrow flipbook-arrow-prev" aria-label="Previous page">&larr;</button>
-
-      <div id="flipbook-wrapper">
-        <div id="flipbook" class="jpg-flipbook"></div>
+  <main style="margin-left:12px;margin-right:12px;">
+    <!-- Flipbook Section -->
+    <section class="flipbook-section">
+      <div class="flipbook-header">
+        <p class="hero-label">- Full Portfolio</p>
+        <h2>Ansh Shah / 2026</h2>
       </div>
 
-      <button id="btn-next" class="flipbook-arrow flipbook-arrow-next" aria-label="Next page">&rarr;</button>
-    </div>
-
-    <div class="portfolio-progress">
-      <input id="page-slider" type="range" min="1" value="1" step="1" aria-label="Portfolio progress">
-      <div class="progress-meta">
-        <span id="page-counter">Page <span id="current-page">1</span> of <span id="total-pages">-</span></span>
-        <span id="progress-percent">0%</span>
+      <div id="loading-state" class="portfolio-loading">
+        <div class="loader-ring"></div>
+        <p>Loading portfolio pages...</p>
       </div>
-    </div>
 
-    <p class="flipbook-hint">Click page edges to flip / Drag to turn / Keyboard arrows also work</p>
-  </section>
+      <div class="flipbook-stage">
+        <button id="btn-prev" class="flipbook-arrow flipbook-arrow-prev" aria-label="Previous page">&larr;</button>
+
+        <div id="flipbook-wrapper">
+          <div id="flipbook" class="jpg-flipbook"></div>
+        </div>
+
+        <button id="btn-next" class="flipbook-arrow flipbook-arrow-next" aria-label="Next page">&rarr;</button>
+      </div>
+
+      <div class="portfolio-progress">
+        <input id="page-slider" type="range" min="1" value="1" step="1" aria-label="Portfolio progress">
+        <div class="progress-meta">
+          <span id="page-counter">Page <span id="current-page">1</span> of <span id="total-pages">-</span></span>
+          <span id="progress-percent">0%</span>
+        </div>
+      </div>
+
+      <p class="flipbook-hint">Click page edges to flip / Drag to turn / Keyboard arrows also work</p>
+    </section>
+  </main>
 
   <!-- Footer -->
   <footer class="footer-dark">
