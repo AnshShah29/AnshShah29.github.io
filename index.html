@@ -15,7 +15,7 @@
  
     :root {
       --bg:     #000000;
-      --ink:    #131313;
+      --ink:    #F5F2ED;
       --accent: #C4622D;
       --line:   #C8BFB4;
       --white:  #FFFFFF;
@@ -107,8 +107,8 @@
  
     /* ─── INTRO STRIP ─── */
     .intro-strip {
-      width: 100%;
-      margin: 0;
+      width: calc(100% - 32px);
+      margin: 16px;
       background: #F5F2ED;
       border: 3px solid #1A1A18;
       box-sizing: border-box;
@@ -181,27 +181,19 @@
     }
  
     /* ─── PROJECT GRID ─── */
-    .projects-grid-wrapper {
-      width: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
     .projects-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0;
-      margin: 0;
-      width: 100%;
     }
  
     .project-tile {
       position: relative;
       overflow: hidden;
-      border-bottom: 3px solid #1A1A18;
-      border-right: 3px solid #1A1A18;
+      border-bottom: 3px solid var(--ink);
+      border-right: 3px solid var(--ink);
       aspect-ratio: 16 / 9;
-      background: #1A1A18;
+      background: var(--ink);
       cursor: pointer;
     }
  
@@ -382,7 +374,7 @@
   <div class="intro-strip">
     <div class="intro-left">
       <h1>Welcome</h1>
-      <p>I am an architectural design student based in Ottawa and Toronto, currently completing my Bachelor of Architectural Studies at Carleton University's Azrieli School of Architecture. This website outlines my portfolio and is a compilation of my academic projects and design work.</p>
+      <p>I am an architectural designer currently based out of Toronto, Canada. This website outlines my portfolio and is a compilation of my professional experiences and services.</p>
       <div class="intro-actions">
         <a href="portfolio.html" class="btn-primary">View Portfolio</a>
         <div class="icon-links">
@@ -405,7 +397,6 @@
  
   <!-- PROJECT GRID -->
   <section id="work">
-    <div class="projects-grid-wrapper">
     <div class="projects-grid">
  
       <a class="project-tile" href="portfolio.html">
@@ -464,7 +455,6 @@
         </div>
       </a>
  
-    </div>
     </div>
   </section>
  
