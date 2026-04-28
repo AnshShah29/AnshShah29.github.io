@@ -5,6 +5,7 @@
 
 let pageFlip = null;
 let totalFlipbookPages = 0;
+const imageCache = new Map();
 
 // Page flip sound - using MP3 file
 let flipAudio = null;
@@ -64,13 +65,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Initialize audio for page flip sounds
   initAudio();
-  
-  // Add click handler to enable audio (browser autoplay policy)
-  document.addEventListener('click', () => {
-    if (audioContext && audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-  }, { once: true });
 
   await loadJpgPages();
 });
@@ -114,8 +108,15 @@ function preloadImages(sources) {
 
     image.onload = () => {
       if (image.decode) {
-        image.decode().then(resolve).catch(resolve);
+        image.decode().then(() => {
+          imageCache.set(src, image);
+          resolve();
+        }).catch(() => {
+          imageCache.set(src, image);
+          resolve();
+        });
       } else {
+        imageCache.set(src, image);
         resolve();
       }
     };
@@ -171,22 +172,28 @@ function createPageElement(page, index) {
   pageSurface.className = 'page-surface';
   pageSurface.setAttribute('role', 'img');
   pageSurface.setAttribute('aria-label', page.label);
-  pageSurface.style.backgroundImage = `url("${page.src}")`;
+  pageSurface.dataset.position = page.position;
 
-  if (page.position === 'left') {
-    pageSurface.style.backgroundSize = '200% 100%';
-    pageSurface.style.backgroundPosition = 'left center';
-  } else if (page.position === 'right') {
-    pageSurface.style.backgroundSize = '200% 100%';
-    pageSurface.style.backgroundPosition = 'right center';
-  } else {
-    pageSurface.style.backgroundSize = 'cover';
-    pageSurface.style.backgroundPosition = 'center';
-  }
+  const pageImage = createPageImage(page);
+  pageSurface.append(pageImage);
 
   pageEl.append(pageSurface);
 
   return pageEl;
+}
+
+function createPageImage(page) {
+  const cachedImage = imageCache.get(page.src);
+  const pageImage = cachedImage ? cachedImage.cloneNode(false) : new Image();
+
+  pageImage.className = `page-image page-image--${page.position}`;
+  pageImage.alt = '';
+  pageImage.decoding = 'sync';
+  pageImage.loading = 'eager';
+  pageImage.draggable = false;
+  pageImage.src = page.src;
+
+  return pageImage;
 }
 
 function initPageFlip() {
@@ -201,21 +208,18 @@ function initPageFlip() {
     width: 612,
     height: 792,
     size: 'stretch',
-    minWidth: 315,
+    minWidth: 280,
     maxWidth: 1000,
     minHeight: 420,
     maxHeight: 1350,
     showCover: true,
     drawShadow: true,
-    flippingTime: 1000,
-    usePortrait: false,
+    flippingTime: 850,
+    usePortrait: true,
     startZIndex: 0,
     autoSize: true,
-    maxShadowOpacity: 0.15, // Reduced to see page underneath better
-    mobileScrollSupport: true,
-    hard: 'none',
-    speed: 10,
-    block: false // Allow seeing underneath pages
+    maxShadowOpacity: 0.1,
+    mobileScrollSupport: true
   });
 
   pageFlip.loadFromHTML(document.querySelectorAll('.page'));
@@ -224,10 +228,15 @@ function initPageFlip() {
     updatePageUI(event.data);
   });
 
+  pageFlip.on('changeOrientation', (event) => {
+    syncFlipbookLayout(event.data);
+  });
+
   setupControls();
   setupProgressSlider();
   setupKeyboardNav();
   hideLoadingState();
+  syncFlipbookLayout(pageFlip.getOrientation());
   updatePageUI(0);
 }
 
@@ -268,7 +277,10 @@ function setupProgressSlider() {
 
     const targetIndex = Number(pageSlider.value) - 1;
 
-    if (typeof pageFlip.turnToPage === 'function') {
+    if (typeof pageFlip.flip === 'function') {
+      playFlipSound();
+      pageFlip.flip(targetIndex);
+    } else if (typeof pageFlip.turnToPage === 'function') {
       pageFlip.turnToPage(targetIndex);
       updatePageUI(targetIndex);
     }
@@ -352,6 +364,19 @@ function hideLoadingState() {
   if (stage) stage.classList.add('is-ready');
   if (progress) progress.classList.add('is-ready');
   if (hint) hint.classList.add('is-ready');
+}
+
+function syncFlipbookLayout(orientation) {
+  const stage = document.querySelector('.flipbook-stage');
+  const wrapper = document.getElementById('flipbook-wrapper');
+  const progress = document.querySelector('.portfolio-progress');
+
+  if (!stage || !wrapper || !progress) return;
+
+  const isPortrait = orientation === 'portrait';
+  stage.classList.toggle('is-portrait', isPortrait);
+  wrapper.classList.toggle('is-portrait', isPortrait);
+  progress.classList.toggle('is-portrait', isPortrait);
 }
 
 window.portfolioFlipbook = {

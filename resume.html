@@ -24,6 +24,15 @@
       box-shadow: 0 2px 16px rgba(0,0,0,0.04);
       text-align: center;
     }
+    .resume-intro h1,
+    .resume-intro p {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .resume-intro p {
+      max-width: 62ch;
+    }
     .resume-pdf {
       display: flex;
       justify-content: center;
@@ -39,6 +48,38 @@
       background: var(--white);
       border-radius: 0.5rem;
       box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    }
+    @media (max-width: 768px) {
+      .resume-intro {
+        margin: 1.25rem 1rem 1.5rem 1rem;
+        padding: 1.6rem 1.1rem 1.35rem 1.1rem;
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+      .resume-pdf {
+        margin: 1rem 0 2rem 0;
+        padding: 0 0.55rem;
+      }
+      .resume-pdf embed, .resume-pdf iframe {
+        width: 100%;
+        max-width: none;
+        height: 72vh;
+        min-height: 440px;
+      }
+    }
+    @media (max-width: 480px) {
+      .resume-intro {
+        margin: 0.85rem 0.6rem 1rem 0.6rem;
+        padding: 1.2rem 0.9rem 1.05rem 0.9rem;
+        font-size: 0.96rem;
+      }
+      .resume-pdf {
+        padding: 0 0.35rem;
+      }
+      .resume-pdf embed, .resume-pdf iframe {
+        height: 68vh;
+        min-height: 360px;
+      }
     }
   </style>
 </head>

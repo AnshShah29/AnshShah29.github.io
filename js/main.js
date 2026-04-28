@@ -35,13 +35,8 @@ function ensureTextRevealStyles() {
       transform: translate3d(0, 22px, 0);
       will-change: opacity, transform;
       transition:
-        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
-        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
-    }
-
-    .text-reveal.is-visible {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
+        opacity var(--reveal-duration, 1.1s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+        transform var(--reveal-duration, 1.1s) cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
     }
 
     .text-reveal[data-reveal-direction="left"] {
@@ -54,6 +49,14 @@ function ensureTextRevealStyles() {
 
     .text-reveal[data-reveal-direction="soft"] {
       transform: translate3d(0, 14px, 0);
+    }
+
+    .text-reveal.is-visible,
+    .text-reveal.is-visible[data-reveal-direction="left"],
+    .text-reveal.is-visible[data-reveal-direction="right"],
+    .text-reveal.is-visible[data-reveal-direction="soft"] {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -72,8 +75,10 @@ function ensureTextRevealStyles() {
  * Reveal text blocks as they enter the viewport with light staggered timing.
  */
 function initTextReveal() {
+  const prefersCompactReveal = window.matchMedia('(max-width: 768px)').matches;
   const revealGroups = [
-    { selector: '.intro-left h1, .resume-intro h1, .flipbook-header', step: 0.08, direction: 'left' },
+    { selector: '.intro-left h1, .resume-intro h1', step: 0.08, direction: 'left' },
+    { selector: '.flipbook-header', step: 0.08, direction: 'left', duration: 0.5 },
     { selector: '.intro-left p, .marketing-hero-copy .marketing-eyebrow, .marketing-hero-copy h1, .marketing-hero-copy p', step: 0.08, direction: 'left' },
     { selector: '.intro-actions, .marketing-actions, .resume-intro p', step: 0.08, direction: 'right' },
     { selector: '#work .project-tile .tile-label', step: 0.06, direction: 'soft' },
@@ -101,6 +106,7 @@ function initTextReveal() {
       seen.add(element);
       element.classList.add('text-reveal');
       element.style.setProperty('--reveal-delay', `${Math.min(index, 6) * (group.step || 0.06)}s`);
+      element.style.setProperty('--reveal-duration', `${group.duration || 1.1}s`);
 
       if (group.direction) {
         element.dataset.revealDirection = group.direction;
@@ -117,6 +123,12 @@ function initTextReveal() {
     return;
   }
 
+  const revealIfInViewport = (element) => {
+    const rect = element.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    return rect.top <= viewportHeight * (prefersCompactReveal ? 0.96 : 0.88);
+  };
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
@@ -125,11 +137,18 @@ function initTextReveal() {
       observer.unobserve(entry.target);
     });
   }, {
-    threshold: 0.18,
-    rootMargin: '0px 0px -8% 0px'
+    threshold: prefersCompactReveal ? 0.04 : 0.14,
+    rootMargin: prefersCompactReveal ? '0px 0px -2% 0px' : '0px 0px -8% 0px'
   });
 
-  revealItems.forEach((item) => observer.observe(item));
+  revealItems.forEach((item) => {
+    if (revealIfInViewport(item)) {
+      item.classList.add('is-visible');
+      return;
+    }
+
+    observer.observe(item);
+  });
 }
 
 /**
