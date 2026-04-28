@@ -1210,8 +1210,13 @@ img {
 
 @media (max-width: 600px) {
   /* Show hamburger, hide desktop nav */
-  .hamburger {
+  .sticky-nav .hamburger {
     display: flex;
+    align-items: center;
+  }
+
+  .sticky-nav .hamburger span {
+    background: var(--ink);
   }
   
   nav .nav-left,
