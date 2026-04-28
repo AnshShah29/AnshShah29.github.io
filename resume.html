@@ -45,13 +45,30 @@
 <body>
   <nav class="sticky-nav">
     <a href="index.html" class="nav-name">ANSH SHAH</a>
-    <div class="nav-links">
-      <a href="index.html">Welcome</a>
-      <a href="portfolio.html">Portfolio</a>
-      <a href="resume.html" class="active">Resume</a>
-      <a href="mailto:ansh-shah@outlook.com">Contact</a>
-    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Welcome</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="marketing.html">Marketing</a></li>
+      <li><a href="resume.html" class="active">Resume</a></li>
+      <li><a href="mailto:ansh-shah@outlook.com">Contact</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
+  
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" aria-hidden="true">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html">Welcome</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="marketing.html">Marketing</a></li>
+      <li><a href="resume.html" class="active">Resume</a></li>
+      <li><a href="mailto:ansh-shah@outlook.com">Contact</a></li>
+    </ul>
+  </div>
   <div class="resume-intro">
     <h1>Hello!</h1>
     <p>
@@ -60,5 +77,22 @@ I am an architecture student driven by the intersection of sustainability, mater
   <div class="resume-pdf">
     <embed src="Resume_Ansh.pdf" type="application/pdf">
   </div>
+  <footer class="site-footer">
+    <div class="site-footer__brand">
+      <p class="site-footer__eyebrow">Ansh Shah</p>
+      <p class="site-footer__note">Architecture, sustainability, material exploration, and digital design workflows.</p>
+    </div>
+    <div class="site-footer__nav">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="marketing.html">Marketing</a>
+    </div>
+    <div class="site-footer__meta">
+      <a href="mailto:ansh-shah@outlook.com">ansh-shah@outlook.com</a>
+      <a href="https://www.linkedin.com/in/ansh-shah-31157129a/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <span>&copy; 2026 Ottawa / Toronto</span>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
 </body>
 </html>

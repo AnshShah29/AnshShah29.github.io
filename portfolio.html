@@ -22,15 +22,31 @@
     <ul class="nav-links">
       <li><a href="index.html#work">Work</a></li>
       <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="marketing.html">Marketing</a></li>
       <li><a href="resume.html">Resume</a></li>
     </ul>
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
+  
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" aria-hidden="true">
+    <ul class="mobile-nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="portfolio.html" class="active">Portfolio</a></li>
+      <li><a href="marketing.html">Marketing</a></li>
+      <li><a href="resume.html">Resume</a></li>
+    </ul>
+  </div>
 
   <main style="margin-left:12px;margin-right:12px;">
     <!-- Flipbook Section -->
     <section class="flipbook-section">
       <div class="flipbook-header">
-        <p class="hero-label">- Full Portfolio</p>
+        <p class="hero-label">- Architecture Portfolio</p>
         <h2>Ansh Shah / 2026</h2>
       </div>
 
@@ -62,8 +78,21 @@
   </main>
 
   <!-- Footer -->
-  <footer class="footer-dark">
-    <p>&copy; 2026 Ansh Shah &nbsp;|&nbsp; <a href="mailto:ansh-shah@outlook.com">ansh-shah@outlook.com</a></p>
+  <footer class="site-footer site-footer--dark">
+    <div class="site-footer__brand">
+      <p class="site-footer__eyebrow">Ansh Shah</p>
+      <p class="site-footer__note">Architecture portfolio, academic work, and visual presentation.</p>
+    </div>
+    <div class="site-footer__nav">
+      <a href="index.html">Home</a>
+      <a href="marketing.html">Marketing</a>
+      <a href="resume.html">Resume</a>
+    </div>
+    <div class="site-footer__meta">
+      <a href="mailto:ansh-shah@outlook.com">ansh-shah@outlook.com</a>
+      <a href="https://www.linkedin.com/in/ansh-shah-31157129a/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <span>&copy; 2026 Ottawa / Toronto</span>
+    </div>
   </footer>
 
   <!-- StPageFlip for flipbook interaction -->
