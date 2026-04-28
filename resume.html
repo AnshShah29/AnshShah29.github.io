@@ -12,23 +12,36 @@
   
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    .resume-layout {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.7fr);
+      gap: 1.25rem;
+      align-items: start;
+      max-width: 1480px;
+      margin: 2rem auto 3rem auto;
+      padding: 0 1.25rem;
+    }
     .resume-intro {
-      max-width: 700px;
-      margin: 3rem auto 2.5rem auto;
-      font-size: 1.15rem;
-      line-height: 1.7;
+      max-width: none;
+      width: 75%;
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.62;
       color: var(--ink);
       background: var(--bg);
       padding: 2.5rem 2rem 2rem 2rem;
       border-radius: 0.5rem;
       box-shadow: 0 2px 16px rgba(0,0,0,0.04);
-      text-align: center;
+      text-align: left;
+      position: sticky;
+      top: 6.5rem;
+      justify-self: start;
     }
     .resume-intro h1,
     .resume-intro p {
-      text-align: center;
-      margin-left: auto;
-      margin-right: auto;
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
     }
     .resume-intro p {
       max-width: 62ch;
@@ -36,31 +49,58 @@
     .resume-pdf {
       display: flex;
       justify-content: center;
-      align-items: center;
-      margin: 2rem 0 4rem 0;
+      align-items: flex-start;
+      margin: 0;
+      min-width: 0;
     }
-    .resume-pdf embed, .resume-pdf iframe {
-      width: 80vw;
-      max-width: 900px;
-      height: 80vh;
-      min-height: 600px;
+    .resume-pdf iframe {
+      width: 100%;
+      max-width: 1120px;
+      height: 88vh;
+      min-height: 720px;
       border: 2px solid var(--ink);
       background: var(--white);
       border-radius: 0.5rem;
       box-shadow: 0 2px 16px rgba(0,0,0,0.06);
     }
+    @media (max-width: 1100px) {
+      .resume-layout {
+        grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.35fr);
+        gap: 1.15rem;
+        padding: 0 1rem;
+      }
+      .resume-intro {
+        width: 100%;
+        padding: 2rem 1.6rem 1.7rem 1.6rem;
+      }
+    }
     @media (max-width: 768px) {
+      .resume-layout {
+        grid-template-columns: 1fr;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+      }
       .resume-intro {
         margin: 1.25rem 1rem 1.5rem 1rem;
+        width: auto;
         padding: 1.6rem 1.1rem 1.35rem 1.1rem;
-        font-size: 1rem;
+        font-size: 0.98rem;
         line-height: 1.65;
+        text-align: center;
+        position: static;
+      }
+      .resume-intro h1,
+      .resume-intro p {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
       }
       .resume-pdf {
         margin: 1rem 0 2rem 0;
         padding: 0 0.55rem;
       }
-      .resume-pdf embed, .resume-pdf iframe {
+      .resume-pdf iframe {
         width: 100%;
         max-width: none;
         height: 72vh;
@@ -71,12 +111,12 @@
       .resume-intro {
         margin: 0.85rem 0.6rem 1rem 0.6rem;
         padding: 1.2rem 0.9rem 1.05rem 0.9rem;
-        font-size: 0.96rem;
+        font-size: 0.92rem;
       }
       .resume-pdf {
         padding: 0 0.35rem;
       }
-      .resume-pdf embed, .resume-pdf iframe {
+      .resume-pdf iframe {
         height: 68vh;
         min-height: 360px;
       }
@@ -110,14 +150,16 @@
       <li><a href="mailto:ansh-shah@outlook.com">Contact</a></li>
     </ul>
   </div>
-  <div class="resume-intro">
-    <h1>Hello!</h1>
-    <p>
+  <main class="resume-layout">
+    <div class="resume-intro">
+      <h1>Hello!</h1>
+      <p>
 I am an architecture student driven by the intersection of sustainability, material innovation, and community-centered design. My work explores how architecture can respond to environmental challenges while creating meaningful social spaces. Through projects ranging from conservation-based urban infill to interdisciplinary sustainability hubs, I investigate how ecological systems, performance strategies, and parametric tools can shape thoughtful, responsive environments. Proficient in Rhino, Grasshopper, D5 Render, and the Adobe Suite, I use digital workflows to test form, performance, and spatial experience. I am particularly interested in regenerative materials, adaptive reuse, and architecture that balances technical rigor with social and environmental responsibility. My goal is to contribute to design practices that prioritize long-term resilience, innovation, and impact.</p>
-  </div>
-  <div class="resume-pdf">
-    <embed src="Resume_Ansh.pdf" type="application/pdf">
-  </div>
+    </div>
+    <div class="resume-pdf">
+      <iframe src="Resume_Ansh.pdf#view=FitH" title="Ansh Shah Resume"></iframe>
+    </div>
+  </main>
   <footer class="site-footer">
     <div class="site-footer__brand">
       <p class="site-footer__eyebrow">Ansh Shah</p>
