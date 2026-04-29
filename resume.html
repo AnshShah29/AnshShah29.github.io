@@ -12,113 +12,201 @@
   
   <link rel="stylesheet" href="css/styles.css">
   <style>
+    .resume-main {
+      padding: 1.25rem 1.25rem 3rem;
+    }
     .resume-layout {
       display: grid;
-      grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.7fr);
-      gap: 1.25rem;
+      grid-template-columns: minmax(300px, 0.76fr) minmax(0, 1.52fr);
+      gap: 1.5rem;
       align-items: start;
       max-width: 1480px;
-      margin: 2rem auto 3rem auto;
-      padding: 0 1.25rem;
+      margin: 0 auto;
     }
     .resume-intro {
-      max-width: none;
-      width: 90.75%;
+      width: 100%;
       margin: 0;
-      font-size: 1.02rem;
-      line-height: 1.62;
-      color: var(--ink);
-      background: var(--bg);
-      padding: 2.5rem 2rem 2rem 2rem;
+      padding: 2.2rem 1.9rem 1.8rem;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(232, 221, 208, 0.68)),
+        var(--bg);
+      border: 1px solid rgba(26, 26, 24, 0.12);
       border-radius: 0.5rem;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+      box-shadow: 0 18px 42px rgba(26, 26, 24, 0.08);
       text-align: left;
       position: sticky;
-      top: 6.5rem;
-      justify-self: start;
+      top: 6rem;
     }
-    .resume-intro h1,
-    .resume-intro p {
-      text-align: left;
-      margin-left: 0;
-      margin-right: 0;
+    .resume-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .resume-eyebrow::before {
+      content: "";
+      width: 2.4rem;
+      height: 1px;
+      background: currentColor;
+    }
+    .resume-intro h1 {
+      margin-bottom: 1rem;
+      font-family: var(--font-display);
+      font-size: clamp(2.3rem, 3vw, 3.3rem);
+      font-weight: 300;
+      line-height: 0.98;
+      letter-spacing: -0.03em;
     }
     .resume-intro p {
-      max-width: 62ch;
+      max-width: 31rem;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: rgba(26, 26, 24, 0.78);
+    }
+    .resume-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+    .resume-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.85rem 1.2rem;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--white);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+    .resume-action:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .resume-action--ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: rgba(26, 26, 24, 0.18);
+    }
+    .resume-action--ghost:hover {
+      color: var(--white);
     }
     .resume-pdf {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      margin: 0;
       min-width: 0;
     }
-    .resume-pdf iframe {
-      width: 100%;
-      max-width: 1120px;
-      height: 88vh;
-      min-height: 720px;
-      border: 2px solid var(--ink);
-      background: var(--white);
+    .resume-frame-shell {
+      overflow: hidden;
+      border: 1px solid rgba(26, 26, 24, 0.12);
       border-radius: 0.5rem;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+      background: var(--white);
+      box-shadow: 0 22px 48px rgba(26, 26, 24, 0.1);
+    }
+    .resume-frame-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.95rem 1rem;
+      border-bottom: 1px solid rgba(26, 26, 24, 0.12);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(232, 221, 208, 0.52)),
+        var(--white);
+    }
+    .resume-frame-head span {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .resume-frame-head span {
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .resume-frame-head p {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: rgba(26, 26, 24, 0.7);
+    }
+    .resume-frame-body {
+      padding: 0.85rem;
+      background:
+        linear-gradient(180deg, rgba(245, 242, 237, 0.75), rgba(255, 255, 255, 0.95)),
+        var(--white);
+    }
+    .resume-embed {
+      width: 100%;
+      aspect-ratio: 8.5 / 11;
+      border: 1px solid rgba(26, 26, 24, 0.14);
+      background: var(--white);
+      display: block;
     }
     @media (max-width: 1100px) {
+      .resume-main {
+        padding: 1rem 1rem 2.5rem;
+      }
       .resume-layout {
-        grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.35fr);
+        grid-template-columns: minmax(280px, 0.88fr) minmax(0, 1.22fr);
         gap: 1.15rem;
-        padding: 0 1rem;
       }
       .resume-intro {
-        width: 100%;
-        padding: 2rem 1.6rem 1.7rem 1.6rem;
+        padding: 1.9rem 1.55rem 1.55rem;
       }
     }
     @media (max-width: 768px) {
+      .resume-main {
+        padding: 0.9rem 0.45rem 2rem;
+      }
       .resume-layout {
         grid-template-columns: 1fr;
-        gap: 0;
-        margin: 0;
-        padding: 0;
+        gap: 0.9rem;
       }
       .resume-intro {
-        margin: 1.25rem 1rem 1.5rem 1rem;
-        width: auto;
-        padding: 1.6rem 1.1rem 1.35rem 1.1rem;
-        font-size: 0.98rem;
-        line-height: 1.65;
-        text-align: center;
+        padding: 1.45rem 1rem 1.2rem;
         position: static;
       }
-      .resume-intro h1,
-      .resume-intro p {
-        text-align: center;
-        margin-left: auto;
-        margin-right: auto;
+      .resume-intro h1 {
+        font-size: clamp(2rem, 9vw, 2.7rem);
       }
-      .resume-pdf {
-        margin: 1rem 0 2rem 0;
-        padding: 0 0.55rem;
+      .resume-intro p,
+      .resume-frame-head p {
+        font-size: 0.93rem;
+        line-height: 1.68;
       }
-      .resume-pdf iframe {
+      .resume-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .resume-action {
         width: 100%;
-        max-width: none;
-        height: 72vh;
-        min-height: 440px;
+      }
+      .resume-frame-head {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.9rem;
+      }
+      .resume-frame-body {
+        padding: 0;
+      }
+      .resume-embed {
+        border: 0;
+        border-top: 1px solid rgba(26, 26, 24, 0.12);
       }
     }
     @media (max-width: 480px) {
       .resume-intro {
-        margin: 0.85rem 0.6rem 1rem 0.6rem;
-        padding: 1.2rem 0.9rem 1.05rem 0.9rem;
-        font-size: 0.92rem;
-      }
-      .resume-pdf {
-        padding: 0 0.35rem;
-      }
-      .resume-pdf iframe {
-        height: 68vh;
-        min-height: 360px;
+        padding: 1.2rem 0.9rem 1rem;
       }
     }
   </style>
@@ -150,15 +238,30 @@
       <li><a href="mailto:ansh-shah@outlook.com">Contact</a></li>
     </ul>
   </div>
-  <main class="resume-layout">
-    <div class="resume-intro">
-      <h1>Hello!</h1>
-      <p>
-I am an architecture student driven by the intersection of sustainability, material innovation, and community-centered design. My work explores how architecture can respond to environmental challenges while creating meaningful social spaces. Through projects ranging from conservation-based urban infill to interdisciplinary sustainability hubs, I investigate how ecological systems, performance strategies, and parametric tools can shape thoughtful, responsive environments. Proficient in Rhino, Grasshopper, D5 Render, and the Adobe Suite, I use digital workflows to test form, performance, and spatial experience. I am particularly interested in regenerative materials, adaptive reuse, and architecture that balances technical rigor with social and environmental responsibility. My goal is to contribute to design practices that prioritize long-term resilience, innovation, and impact.</p>
-    </div>
-    <div class="resume-pdf">
-      <iframe src="Resume_Ansh.pdf#view=FitH" title="Ansh Shah Resume"></iframe>
-    </div>
+  <main class="resume-main">
+    <section class="resume-layout">
+      <div class="resume-intro">
+        <span class="resume-eyebrow">Resume</span>
+        <h1>Hello!</h1>
+        <p>I am an architecture student driven by the intersection of sustainability, material innovation, and community-centered design. My work explores how architecture can respond to environmental challenges while creating meaningful social spaces. Through projects ranging from conservation-based urban infill to interdisciplinary sustainability hubs, I investigate how ecological systems, performance strategies, and parametric tools can shape thoughtful, responsive environments. Proficient in Rhino, Grasshopper, D5 Render, and the Adobe Suite, I use digital workflows to test form, performance, and spatial experience. I am particularly interested in regenerative materials, adaptive reuse, and architecture that balances technical rigor with social and environmental responsibility. My goal is to contribute to design practices that prioritize long-term resilience, innovation, and impact.</p>
+        <div class="resume-actions">
+          <a href="Resume_Ansh.pdf" class="resume-action" target="_blank" rel="noreferrer">Open PDF</a>
+          <a href="Resume_Ansh.pdf" class="resume-action resume-action--ghost" download>Download Resume</a>
+        </div>
+      </div>
+      <div class="resume-pdf">
+        <div class="resume-frame-shell">
+          <div class="resume-frame-head">
+            <div>
+              <span>Resume</span>
+            </div>
+          </div>
+          <div class="resume-frame-body">
+            <iframe class="resume-embed" src="Resume_Ansh.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH" title="Ansh Shah Resume" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
   <footer class="site-footer">
     <div class="site-footer__brand">
