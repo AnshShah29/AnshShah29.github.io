@@ -178,6 +178,28 @@
       border-color: var(--accent);
     }
 
+    .btn-mobile-marketing {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.85rem 1.5rem;
+      border: 1px solid rgba(26, 26, 24, 0.18);
+      background: transparent;
+      color: #1A1A18;
+      font-family: var(--fm);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-mobile-marketing:hover {
+      background: rgba(196, 98, 45, 0.1);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
     .icon-links {
       display: flex;
       align-items: center;
@@ -585,6 +607,10 @@
       .btn-primary {
         width: 100%;
       }
+      .btn-mobile-marketing {
+        display: inline-flex;
+        width: 100%;
+      }
       .icon-links {
         width: 100%;
       }
@@ -680,6 +706,7 @@
       <p>I am an architectural design student based in Ottawa and Toronto, currently completing my Bachelor of Architectural Studies at Carleton University's Azrieli School of Architecture. This website outlines my portfolio and is a compilation of my academic projects and design work.</p>
       <div class="intro-actions">
         <a href="portfolio.html" class="btn-primary">View Portfolio</a>
+        <a href="marketing.html" class="btn-mobile-marketing">Marketing</a>
         <div class="icon-links">
           <a href="mailto:ansh-shah@outlook.com" title="Email">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
