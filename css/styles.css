@@ -525,6 +525,79 @@ img {
   gap: 1rem;
 }
 
+.marketing-additional-work {
+  margin-top: 2rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid rgba(26, 26, 24, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(232, 221, 208, 0.45)),
+    var(--white);
+}
+
+.marketing-additional-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 0.85rem 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.marketing-additional-head .section-label {
+  margin-bottom: 0.65rem;
+}
+
+.marketing-additional-head h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.marketing-additional-head p {
+  max-width: 35rem;
+  color: rgba(26, 26, 24, 0.7);
+}
+
+.marketing-additional-head > * {
+  min-width: 0;
+}
+
+.marketing-collage {
+  column-count: 3;
+  column-gap: 0.85rem;
+}
+
+.marketing-collage-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: var(--ratio, 1);
+  overflow: hidden;
+  break-inside: avoid;
+  margin: 0 0 0.85rem;
+  padding: var(--pad, 0.7rem);
+  border: 1px solid rgba(26, 26, 24, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 242, 237, 0.88)),
+    var(--white);
+  box-shadow: 0 10px 24px rgba(26, 26, 24, 0.06);
+}
+
+.marketing-collage-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 0.35s ease;
+}
+
+.marketing-collage-item:hover img {
+  transform: scale(1.015);
+}
+
 .marketing-tile {
   position: relative;
   display: flex;
@@ -1347,6 +1420,32 @@ img {
     gap: 0.7rem;
   }
 
+  .marketing-additional-work {
+    margin-top: 1.2rem;
+    padding: 0.9rem;
+  }
+
+  .marketing-additional-head {
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .marketing-additional-head p {
+    max-width: none;
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .marketing-collage {
+    column-count: 2;
+    column-gap: 0.7rem;
+  }
+
+  .marketing-collage-item {
+    padding: 0.55rem;
+    margin-bottom: 0.7rem;
+  }
+
   .marketing-tile {
     aspect-ratio: 1 / 1.08;
   }
@@ -1408,6 +1507,10 @@ img {
 
   .marketing-showcase-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .marketing-collage {
+    column-count: 3;
   }
 
   #flipbook-wrapper {
@@ -1475,6 +1578,10 @@ img {
 
   .marketing-showcase-grid {
     grid-template-columns: 1fr;
+  }
+
+  .marketing-collage {
+    column-count: 2;
   }
 
   .marketing-tile-label {
@@ -1571,6 +1678,14 @@ img {
 
   .marketing-tile {
     aspect-ratio: 1 / 1.15;
+  }
+
+  .marketing-collage {
+    column-count: 1;
+  }
+
+  .marketing-collage-item {
+    padding: 0.5rem;
   }
 
   .site-footer {
