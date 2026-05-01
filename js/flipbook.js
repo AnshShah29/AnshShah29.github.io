@@ -41,7 +41,7 @@ function playFlipSound() {
 }
 
 const coverPage = 'assets/images/Cover_Page.jpg';
-const endPage = 'assets/images/End_Page.jpg';
+const endPage = 'assets/images/Page_17.jpg';
 const spreadPages = [
   'assets/images/Page_2.jpg',
   'assets/images/Page_3.jpg',

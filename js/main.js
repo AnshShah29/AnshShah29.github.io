@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   ensureTextRevealStyles();
   initTextReveal();
 
+  // Ensure muted autoplay previews start reliably across browsers.
+  initAutoplayVideos();
+
   // Initialize staggered animations for hero elements
   initHeroAnimations();
   
@@ -19,6 +22,67 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize hamburger menu for mobile
   initMobileMenu();
 });
+
+function initAutoplayVideos() {
+  const autoplayVideos = document.querySelectorAll('video[autoplay]');
+
+  if (!autoplayVideos.length) return;
+
+  const replaceWithFallbackImage = (video) => {
+    const fallbackSrc = video.dataset.fallbackImage;
+
+    if (!fallbackSrc || video.dataset.fallbackApplied === 'true') return;
+
+    const fallbackImage = document.createElement('img');
+    fallbackImage.src = fallbackSrc;
+    fallbackImage.alt = video.getAttribute('aria-label') || '';
+    fallbackImage.loading = 'eager';
+    fallbackImage.decoding = 'async';
+    video.dataset.fallbackApplied = 'true';
+    video.replaceWith(fallbackImage);
+  };
+
+  const tryPlay = (video) => {
+    const playPromise = video.play();
+
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch((error) => {
+        if (error && error.name === 'NotSupportedError') {
+          replaceWithFallbackImage(video);
+        }
+      });
+    }
+  };
+
+  autoplayVideos.forEach((video) => {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.autoplay = true;
+    video.playsInline = true;
+
+    if (video.hasAttribute('loop')) {
+      video.loop = true;
+    }
+
+    video.addEventListener('error', () => replaceWithFallbackImage(video), { once: true });
+
+    if (video.readyState >= 2) {
+      tryPlay(video);
+    } else {
+      video.addEventListener('loadeddata', () => tryPlay(video), { once: true });
+    }
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) return;
+
+    autoplayVideos.forEach((video) => {
+      if (video.paused) {
+        tryPlay(video);
+      }
+    });
+  });
+}
 
 /**
  * Inject shared text reveal styles so all pages, including index.html,

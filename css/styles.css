@@ -638,7 +638,8 @@ img {
     var(--accent-light);
 }
 
-.marketing-tile-media img {
+.marketing-tile-media img,
+.marketing-tile-media video {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -646,8 +647,11 @@ img {
 }
 
 .marketing-tile:hover .marketing-tile-media img,
+.marketing-tile:hover .marketing-tile-media video,
 .marketing-tile:focus-visible .marketing-tile-media img,
-.marketing-tile:focus-within .marketing-tile-media img {
+.marketing-tile:focus-visible .marketing-tile-media video,
+.marketing-tile:focus-within .marketing-tile-media img,
+.marketing-tile:focus-within .marketing-tile-media video {
   transform: scale(1.03);
 }
 
