@@ -5,15 +5,1397 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marketing | Ansh Shah</title>
   <meta name="description" content="Client-facing marketing services by Ansh Shah, including brand collateral, signage, short-form video, and website support.">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <link rel="stylesheet" href="css/styles.css?v=20260429-2">
+    :root {
+      --bg: #0b0a09;
+      --surface: #12100e;
+      --surface-2: #171411;
+      --cream: #e9e0d2;
+      --light: #cfc3b3;
+      --muted: #afa08f;
+      --accent: #c7a264;
+      --accent-soft: rgba(199, 162, 100, 0.16);
+      --line: rgba(199, 162, 100, 0.14);
+      --nav-h: 58px;
+      --max: 1240px;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background:
+        radial-gradient(circle at top, rgba(199, 162, 100, 0.08), transparent 30%),
+        linear-gradient(180deg, #090807 0%, #0b0a09 100%);
+      color: var(--cream);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img, video { display: block; width: 100%; max-width: 100%; }
+
+    .sticky-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      z-index: 1000;
+      background: rgba(11, 10, 9, 0.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(200, 191, 180, 0.08);
+      transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    .sticky-nav.is-scrolled {
+      background: rgba(11, 10, 9, 0.94);
+      border-color: rgba(200, 191, 180, 0.14);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.16);
+    }
+
+    .nav-name {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.26em;
+      color: var(--cream);
+      white-space: nowrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.3rem;
+      list-style: none;
+    }
+
+    .nav-links a,
+    .mobile-nav-links a {
+      position: relative;
+      font-size: 0.74rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.25s ease;
+    }
+
+    .nav-links a::after,
+    .mobile-nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.22rem;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active,
+    .mobile-nav-links a:hover,
+    .mobile-nav-links a.active {
+      color: var(--cream);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after,
+    .mobile-nav-links a:hover::after,
+    .mobile-nav-links a.active::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 1.2rem;
+      height: 1px;
+      background: var(--cream);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .hamburger span + span { margin-top: 0.28rem; }
+
+    .hamburger.active span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      inset: var(--nav-h) 0 auto 0;
+      padding: 1.5rem;
+      background: rgba(8, 7, 6, 0.98);
+      border-bottom: 1px solid var(--line);
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+      z-index: 900;
+    }
+
+    .mobile-menu.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      padding: calc(var(--nav-h) + 3rem) 2rem 4rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 25%, rgba(199, 162, 100, 0.08), transparent 22%),
+        radial-gradient(circle at 78% 70%, rgba(199, 162, 100, 0.05), transparent 24%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 4px,
+          rgba(199, 162, 100, 0.02) 4px,
+          rgba(199, 162, 100, 0.02) 5px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, rgba(199, 162, 100, 0.06), transparent 45%),
+        radial-gradient(circle at 80% 18%, rgba(255, 255, 255, 0.035), transparent 18%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(100%, var(--max));
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
+      gap: 4rem;
+      align-items: end;
+    }
+
+    .hero-copy {
+      max-width: 42rem;
+    }
+
+    .hero-eyebrow,
+    .section-label,
+    .info-label,
+    .work-kicker {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .hero-brand {
+      margin-top: 1rem;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(4.8rem, 15vw, 11rem);
+      line-height: 0.88;
+      letter-spacing: 0.14em;
+      color: var(--cream);
+    }
+
+    .hero-brand span {
+      display: block;
+      position: relative;
+      width: fit-content;
+    }
+
+    .hero-brand span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.45rem;
+      width: min(62vw, 21rem);
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent 88%);
+      opacity: 0.9;
+    }
+
+    .hero-sub {
+      margin-top: 2.5rem;
+      max-width: 30rem;
+      font-size: clamp(1.15rem, 2.4vw, 1.65rem);
+      line-height: 1.35;
+      font-style: italic;
+      color: var(--light);
+    }
+
+    .hero-meta {
+      margin-top: 0.85rem;
+      font-size: 0.76rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 1.6rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(199, 162, 100, 0.08), transparent 58%);
+      pointer-events: none;
+    }
+
+    .hero-panel > * { position: relative; z-index: 1; }
+
+    .hero-panel h2 {
+      margin: 0.75rem 0 1rem;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      line-height: 0.95;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+    }
+
+    .hero-panel p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--light);
+    }
+
+    .hero-stat-row {
+      margin-top: 1.4rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 2rem;
+      line-height: 0.95;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+    }
+
+    .hero-stat span {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      left: 50%;
+      bottom: 2rem;
+      transform: translate(-50%, 18px);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      color: var(--muted);
+    }
+
+    .hero-scroll span {
+      font-size: 0.64rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .hero-scroll svg {
+      animation: bob 1.9s ease-in-out infinite;
+    }
+
+    .section-divider {
+      width: min(100% - 3rem, var(--max));
+      margin: 0 auto;
+      border: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 6.5rem 2rem;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.95fr);
+      gap: 4.5rem;
+      align-items: start;
+    }
+
+    .section-heading {
+      margin-top: 1rem;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+    }
+
+    .about-body,
+    .info-card p,
+    .exp-desc,
+    .services-intro p,
+    .work-intro p,
+    .cta-text p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--light);
+    }
+
+    .about-copy .about-body + .about-body {
+      margin-top: 1.2rem;
+    }
+
+    .about-actions {
+      margin-top: 2.1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .marketing-support-section {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .marketing-support-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.05;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+      z-index: 0;
+    }
+
+    .marketing-support-section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .marketing-support-section .about-grid {
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+      gap: 3.5rem;
+      align-items: start;
+    }
+
+    .marketing-support-heading {
+      margin-top: 1rem;
+      margin-bottom: 2.4rem;
+      text-transform: uppercase;
+      line-height: 0.92;
+    }
+
+    .marketing-support-heading-main,
+    .marketing-support-heading-tail {
+      display: block;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2.9rem, 6.2vw, 5.3rem);
+      line-height: 0.95;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+    }
+
+    .marketing-support-heading-sub {
+      display: block;
+      margin: 0.5rem 0 0.55rem;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(1.1rem, 2.3vw, 2rem);
+      line-height: 0.95;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      font-style: italic;
+      opacity: 0.96;
+    }
+
+    .marketing-support-rulelabel {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 0 0 2rem;
+    }
+
+    .marketing-support-rulelabel::before {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(199, 162, 100, 0.9);
+    }
+
+    .marketing-support-rulelabel span {
+      flex-shrink: 0;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .marketing-support-section .about-body,
+    .marketing-support-section .info-card p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #c8b99a;
+    }
+
+    .marketing-support-section .about-copy .about-body + .about-body,
+    .marketing-support-section .info-card p + p {
+      margin-top: 1rem;
+    }
+
+    .marketing-support-section .info-stack {
+      margin-top: 4rem;
+      gap: 1.2rem;
+    }
+
+    .marketing-support-section .info-card {
+      padding: 0;
+      background: transparent;
+      border: 0;
+    }
+
+    .marketing-support-section .info-card h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .marketing-support-section .info-label {
+      margin-bottom: 0.8rem;
+      color: var(--accent);
+    }
+
+    .marketing-support-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      padding: 0.85rem 1.45rem;
+      border: 1px solid rgba(199, 162, 100, 0.85);
+      background: transparent;
+      color: var(--cream);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+
+    .marketing-support-cta::after {
+      content: "\2192";
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .marketing-support-cta:hover {
+      background: var(--accent);
+      color: #0b0a09;
+      border-color: var(--accent);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.55rem;
+      border: 1px solid rgba(199, 162, 100, 0.5);
+      background: transparent;
+      color: var(--cream);
+      font-size: 0.76rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--cream);
+      color: var(--cream);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn.filled {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0b0a09;
+    }
+
+    .btn.filled:hover {
+      background: transparent;
+      border-color: var(--cream);
+      color: var(--cream);
+    }
+
+    .info-stack {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .info-card {
+      padding: 1.5rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0));
+      border: 1px solid var(--line);
+    }
+
+    .info-card h3,
+    .services-card h3,
+    .showcase-card-title,
+    .exp-role,
+    .quote cite,
+    .additional-head h3,
+    .cta-text h2,
+    .footer-left p {
+      font-family: "Bebas Neue", sans-serif;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+    }
+
+    .info-card h3 {
+      margin: 0.75rem 0 1rem;
+      font-size: 1.55rem;
+      line-height: 0.95;
+    }
+
+    .scope-cloud {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .scope-cloud span,
+    .service-tags span {
+      padding: 0.32rem 0.65rem;
+      border: 1px solid rgba(199, 162, 100, 0.2);
+      color: var(--accent);
+      font-size: 0.66rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .experience-list {
+      margin-top: 1rem;
+      display: grid;
+    }
+
+    .experience-item {
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .experience-item:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .exp-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+      margin-bottom: 0.35rem;
+    }
+
+    .exp-role {
+      font-size: 1.15rem;
+    }
+
+    .exp-date,
+    .exp-company,
+    .showcase-card-meta,
+    .collage-caption,
+    .footer-left span,
+    .footer-right,
+    .footer-right span {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .exp-company { margin-bottom: 0.65rem; }
+    .exp-desc { font-size: 0.92rem; }
+
+    .services-header,
+    .work-header,
+    .additional-head,
+    .cta-section {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(16rem, 0.85fr);
+      gap: 3rem;
+      align-items: end;
+    }
+
+    .services-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .services-card {
+      min-height: 20rem;
+      padding: 2rem 1.65rem;
+      background: var(--bg);
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    .services-card:hover {
+      background: rgba(199, 162, 100, 0.04);
+      transform: translateY(-2px);
+    }
+
+    .services-card-num,
+    .showcase-card-index {
+      font-family: "Bebas Neue", sans-serif;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      color: rgba(199, 162, 100, 0.18);
+    }
+
+    .services-card-num {
+      font-size: 3.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .services-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .services-card p {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--light);
+    }
+
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1.15rem;
+    }
+
+    .capabilities-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 2rem;
+    }
+
+    .capability-item {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(199, 162, 100, 0.08);
+      transition: transform 0.25s ease, padding-left 0.25s ease;
+    }
+
+    .capability-item:hover {
+      transform: translateX(6px);
+      padding-left: 0.3rem;
+    }
+
+    .capability-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      opacity: 0.75;
+    }
+
+    .capability-item span:last-child {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--light);
+    }
+
+    .process-grid {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 3px;
+    }
+
+    .process-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 16rem;
+      padding: 2rem 1.4rem;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0));
+      border: 1px solid rgba(199, 162, 100, 0.08);
+    }
+
+    .process-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .process-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .process-card-num {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 3.2rem;
+      line-height: 1;
+      letter-spacing: 0.06em;
+      color: rgba(199, 162, 100, 0.12);
+      margin-bottom: 0.8rem;
+    }
+
+    .process-card h3 {
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 1.2rem;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+      margin-bottom: 0.7rem;
+    }
+
+    .process-card p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--light);
+    }
+
+    .work-header { margin-bottom: 2rem; }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .showcase-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid rgba(199, 162, 100, 0.1);
+      min-height: 20rem;
+      box-shadow: var(--shadow);
+    }
+
+    .showcase-card--wide { grid-column: span 7; min-height: 31rem; }
+    .showcase-card--tall { grid-column: span 5; min-height: 31rem; }
+    .showcase-card--half { grid-column: span 6; min-height: 24rem; }
+
+    .showcase-card-media,
+    .showcase-card-media img,
+    .showcase-card-media video {
+      width: 100%;
+      height: 100%;
+    }
+
+    .showcase-card-media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.4rem;
+      padding-bottom: 5.7rem;
+      background:
+        radial-gradient(circle at top, rgba(199, 162, 100, 0.07), transparent 32%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+    }
+
+    .showcase-card-media img,
+    .showcase-card-media video {
+      object-fit: contain;
+      filter: none;
+      transition: transform 0.45s ease, box-shadow 0.35s ease;
+    }
+
+    .showcase-card:hover .showcase-card-media img,
+    .showcase-card:hover .showcase-card-media video {
+      transform: translateY(-4px);
+    }
+
+    .showcase-card-copy {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 1.15rem 1.3rem 1.2rem;
+      background: linear-gradient(180deg, transparent 0%, rgba(8, 7, 6, 0.92) 55%, rgba(8, 7, 6, 0.98) 100%);
+      display: grid;
+      gap: 0.18rem;
+      z-index: 2;
+    }
+
+    .showcase-card-title {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .showcase-card-meta {
+      color: var(--accent);
+    }
+
+    .showcase-card-index {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 0.95rem;
+      z-index: 2;
+    }
+
+    .showcase-card-kicker {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      z-index: 2;
+      padding: 0.28rem 0.55rem;
+      background: rgba(8, 7, 6, 0.72);
+      border: 1px solid rgba(199, 162, 100, 0.18);
+      color: var(--cream);
+      font-size: 0.64rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .showcase-card-overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 4.5rem 1.3rem 1.4rem;
+      background: linear-gradient(180deg, transparent 0%, rgba(8, 7, 6, 0.15) 15%, rgba(8, 7, 6, 0.96) 100%);
+      transform: translateY(100%);
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 3;
+    }
+
+    .showcase-card:hover .showcase-card-overlay,
+    .showcase-card:focus-within .showcase-card-overlay {
+      transform: translateY(0);
+    }
+
+    .showcase-card-overlay p {
+      margin-top: 0.7rem;
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--light);
+    }
+
+    .showcase-card--text {
+      background:
+        linear-gradient(180deg, rgba(199, 162, 100, 0.08), transparent 40%),
+        var(--surface-2);
+      display: flex;
+      align-items: stretch;
+    }
+
+    .showcase-card--text .showcase-card-media {
+      display: flex;
+      height: 100%;
+      padding-bottom: 1.4rem;
+    }
+
+    .showcase-service-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.5rem;
+      width: 100%;
+      padding: 1.5rem;
+    }
+
+    .showcase-service-panel h3 {
+      margin-top: 0.8rem;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: clamp(2rem, 4.5vw, 3.3rem);
+      line-height: 0.92;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+    }
+
+    .showcase-service-panel p {
+      font-size: 0.96rem;
+      line-height: 1.85;
+      color: var(--light);
+    }
+
+    .showcase-service-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .showcase-service-list span {
+      padding: 0.35rem 0.65rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(199, 162, 100, 0.15);
+      color: var(--accent);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .quote {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      text-align: center;
+    }
+
+    .quote blockquote {
+      max-width: 52rem;
+      margin: 0 auto;
+      font-size: clamp(1.5rem, 3.8vw, 2.9rem);
+      line-height: 1.35;
+      font-style: italic;
+      color: var(--cream);
+    }
+
+    .quote blockquote em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .quote cite {
+      display: block;
+      margin-top: 1.8rem;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .additional-head {
+      margin-bottom: 2rem;
+      align-items: start;
+    }
+
+    .additional-head h3 {
+      font-size: clamp(2rem, 4.5vw, 3.6rem);
+      line-height: 0.95;
+    }
+
+    .additional-head p {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--light);
+    }
+
+    .media-slider {
+      position: relative;
+      margin-top: 0.4rem;
+      padding: 1rem 0 0;
+    }
+
+    .media-slider::before,
+    .media-slider::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: min(9vw, 6rem);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .media-slider::before {
+      left: 0;
+      background: linear-gradient(90deg, var(--bg) 0%, rgba(11, 10, 9, 0) 100%);
+    }
+
+    .media-slider::after {
+      right: 0;
+      background: linear-gradient(270deg, var(--bg) 0%, rgba(11, 10, 9, 0) 100%);
+    }
+
+    .media-slider-viewport {
+      overflow: hidden;
+      border-top: 1px solid rgba(199, 162, 100, 0.1);
+      border-bottom: 1px solid rgba(199, 162, 100, 0.1);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0)),
+        var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .media-slider-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      padding: 1.25rem 0;
+      animation: sliderMarquee 52s linear infinite;
+      will-change: transform;
+    }
+
+    .media-slider:hover .media-slider-track,
+    .media-slider:focus-within .media-slider-track {
+      animation-play-state: paused;
+    }
+
+    .media-slide {
+      flex: 0 0 auto;
+      width: min(28rem, 34vw);
+      padding: 0.85rem;
+      border-right: 1px solid rgba(199, 162, 100, 0.08);
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .media-slide--portrait {
+      width: min(20rem, 24vw);
+    }
+
+    .media-slide--wide {
+      width: min(38rem, 44vw);
+    }
+
+    .media-slide-frame {
+      display: grid;
+      place-items: center;
+      height: clamp(14rem, 28vw, 22rem);
+      padding: 0.8rem;
+      background:
+        radial-gradient(circle at top, rgba(199, 162, 100, 0.08), transparent 38%),
+        #100f0d;
+      border: 1px solid rgba(199, 162, 100, 0.1);
+    }
+
+    .media-slide-frame img,
+    .media-slide-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .media-slide-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 0.7rem;
+      color: var(--muted);
+      font-size: 0.66rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .cta-section {
+      align-items: center;
+      padding-top: 4rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .cta-text h2 {
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      line-height: 0.95;
+      margin-bottom: 0.8rem;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      justify-self: end;
+    }
+
+    .site-footer {
+      margin-top: 5rem;
+      padding: 2.25rem 2rem;
+      border-top: 1px solid var(--line);
+      background: #090807;
+      display: flex;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-left p {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      align-items: flex-end;
+    }
+
+    .footer-right a:hover { color: var(--cream); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(38px);
+      transition:
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(26px);
+      transition:
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0ms; }
+    .stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 90ms; }
+    .stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 180ms; }
+    .stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 270ms; }
+    .stagger.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 360ms; }
+    .stagger.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 450ms; }
+
+    .hero-eyebrow,
+    .hero-brand,
+    .hero-sub,
+    .hero-meta,
+    .hero-panel,
+    .hero-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero-eyebrow { animation-delay: 0.12s; }
+    .hero-brand { animation-delay: 0.22s; }
+    .hero-sub { animation-delay: 0.5s; }
+    .hero-meta { animation-delay: 0.72s; }
+    .hero-panel { animation-delay: 0.45s; }
+    .hero-scroll {
+      animation-name: fadeUpCentered;
+      animation-delay: 1s;
+      animation-duration: 0.7s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeUpCentered {
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    @keyframes sliderMarquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-50% - 0.5rem)); }
+    }
+
+    @media (max-width: 980px) {
+      .sticky-nav { padding: 0 1.2rem; }
+      .nav-links { display: none; }
+      .hamburger { display: inline-flex; }
+
+      .hero,
+      .section { padding-left: 1.2rem; padding-right: 1.2rem; }
+
+      .hero-inner,
+      .about-grid,
+      .services-header,
+      .work-header,
+      .additional-head,
+      .cta-section {
+        grid-template-columns: 1fr;
+        gap: 2.4rem;
+      }
+
+      .hero-panel { max-width: 32rem; }
+
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .marketing-support-section .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .marketing-support-section .info-stack {
+        margin-top: 0;
+      }
+
+      .capabilities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .showcase-card--wide,
+      .showcase-card--tall,
+      .showcase-card--half {
+        grid-column: span 12;
+        min-height: 22rem;
+      }
+
+      .media-slide,
+      .media-slide--portrait,
+      .media-slide--wide {
+        width: min(24rem, 70vw);
+      }
+
+      .cta-actions {
+        justify-self: start;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .footer-right { align-items: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        min-height: auto;
+        padding-top: calc(var(--nav-h) + 2.5rem);
+      }
+
+      .hero-brand {
+        font-size: clamp(3.6rem, 19vw, 6rem);
+      }
+
+      .hero-panel {
+        padding: 1.2rem;
+      }
+
+      .marketing-support-rulelabel {
+        gap: 0.75rem;
+      }
+
+      .marketing-support-rulelabel span {
+        white-space: normal;
+        text-align: right;
+      }
+
+      .hero-stat-row,
+      .services-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .services-card {
+        min-height: auto;
+      }
+
+      .media-slide,
+      .media-slide--portrait,
+      .media-slide--wide {
+        width: min(20rem, 82vw);
+      }
+
+      .media-slide-frame {
+        height: 14rem;
+      }
+
+      .site-footer {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal,
+      .stagger > * {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
 </head>
 <body>
-  <nav class="sticky-nav">
+  <nav class="sticky-nav" id="nav">
     <a href="index.html" class="nav-name">ANSH SHAH</a>
     <ul class="nav-links">
       <li><a href="index.html#work">Work</a></li>
@@ -39,93 +1421,306 @@
     </ul>
   </div>
 
-  <main class="marketing-main">
-    <section class="marketing-hero">
-      <div class="marketing-hero-shell">
-        <div class="marketing-hero-copy">
-          <span class="marketing-eyebrow">Client-Facing Services</span>
-          <h1>Marketing support shaped by design thinking, visual clarity, and strong brand presence.</h1>
-          <p>I am an architecture student and designer whose work is rooted in sustainability, material innovation, and community-centered thinking. Alongside architectural work, I create client-facing visuals that help businesses present themselves clearly across print, signage, motion, and digital platforms.</p>
-          <p>My process combines layout, branding, and digital workflow tools to build polished marketing materials that feel intentional, readable, and consistent. Whether the goal is a stronger first impression, a clearer visual identity, or a better online presence, I approach each piece with the same focus on performance, detail, and impact.</p>
-          <div class="marketing-actions">
-            <a href="mailto:ansh-shah@outlook.com" class="cta-btn">Start a Project</a>
-            <a href="portfolio.html" class="marketing-secondary-link">View Architecture Portfolio</a>
+  <main>
+    <section class="hero">
+      <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="hero-eyebrow">Brand & Marketing &middot; Toronto / Ottawa</span>
+          <h1 class="hero-brand"><span>ANSH SHAH</span></h1>
+          <p class="hero-sub">Client-facing marketing work built with architectural discipline, digital clarity, and a sharper brand presence.</p>
+          <p class="hero-meta">Identity &middot; Print &middot; Motion &middot; Website Support &middot; Presentation Systems</p>
+        </div>
+
+        <aside class="hero-panel" aria-label="Marketing overview">
+          <span class="info-label">Marketing Practice</span>
+          <h2>Design thinking for brands that need to look precise, credible, and ready to grow.</h2>
+          <p>I build marketing material that balances polish with performance, from first-touch brand assets to campaign graphics, short-form video, signage, and clean website presentation.</p>
+          <div class="hero-stat-row">
+            <div class="hero-stat">
+              <strong>06</strong>
+              <span>Core Service Areas</span>
+            </div>
+            <div class="hero-stat">
+              <strong>Print + Digital</strong>
+              <span>Cross-Platform Support</span>
+            </div>
+            <div class="hero-stat">
+              <strong>2028</strong>
+              <span>Toronto / Ottawa</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <a class="hero-scroll" href="#selected-work" aria-label="Scroll to selected work">
+        <span>Scroll</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1">
+          <polyline points="2,5 8,12 14,5"></polyline>
+        </svg>
+      </a>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section marketing-support-section">
+      <div class="about-grid reveal">
+        <div class="about-copy">
+          <span class="section-label">01 / Positioning</span>
+          <h2 class="section-heading marketing-support-heading">
+            <span class="marketing-support-heading-main">Marketing Support</span>
+            <span class="marketing-support-heading-sub">With a Designer's Eye</span>
+            <span class="marketing-support-heading-tail">And a Builder's Discipline</span>
+          </h2>
+          <div class="marketing-support-rulelabel">
+            <span>Strategic. Not Decorative.</span>
+          </div>
+          <p class="about-body">I am an architecture student and designer whose work is rooted in sustainability, material innovation, and community-centered thinking. Alongside architectural work, I create client-facing visuals that help businesses present themselves clearly across print, signage, motion, and digital platforms.</p>
+          <p class="about-body">My process combines layout, branding, and digital workflow tools to build polished marketing materials that feel intentional, readable, and consistent. Whether the goal is a stronger first impression, a clearer visual identity, or a better online presence, I approach each piece with the same focus on performance, detail, and impact.</p>
+          <div class="about-actions">
+            <a href="mailto:ansh-shah@outlook.com" class="marketing-support-cta">Start a Project</a>
           </div>
         </div>
 
-        <aside class="marketing-hero-aside" aria-label="Service overview">
-          <div class="marketing-note">
-            <span class="marketing-note-label">Approach</span>
-            <p>I work best on projects that need both visual direction and careful execution, especially for design-focused, real estate, academic, and growing business clients. My background in creating Architectural Presentations, Computer Science as well as the Adobe Suite helps me move comfortably between branding, presentations, marketing graphics, and spatially aware visual communication.</p>
-          </div>
-          <div class="marketing-scope">
-            <span class="marketing-scope-label">Service Scope</span>
-            <div class="marketing-scope-list">
+        <div class="info-stack">
+          <article class="info-card">
+            <span class="info-label">Approach</span>
+            <p>I work best on projects that need both visual direction and careful execution, especially for design-focused, real estate, academic, and growing business clients. My background in architectural presentations, digital tools, and the Adobe Suite lets me move comfortably between branding, presentations, marketing graphics, and spatially aware communication.</p>
+          </article>
+
+          <article class="info-card">
+            <span class="info-label">Service Scope</span>
+            <div class="scope-cloud" aria-label="Marketing service scope">
               <span>Brand Assets</span>
-              <span>Mobile optimization</span>
               <span>Print Design</span>
               <span>Signage</span>
               <span>Short-Form Video</span>
               <span>Website Support</span>
-              <span>Visual Direction</span>
               <span>Presentation Design</span>
               <span>Adobe Suite</span>
               <span>D5 Render</span>
-              <span>Vinyl signs</span>
-              <span>Flyers</span>
-              <span>Render Post-Production</span>
               <span>Layout Systems</span>
               <span>Digital Branding</span>
               <span>Marketing Graphics</span>
               <span>Portfolio Formatting</span>
             </div>
-          </div>
-        </aside>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="marketing-showcase" aria-labelledby="marketing-showcase-title">
-      <div class="marketing-showcase-head">
-        <div>
-          <p class="section-label">Service Showcase</p>
-          <h2 id="marketing-showcase-title">Selected Work</h2>
+    <hr class="section-divider">
+
+    <section class="section">
+      <div class="services-header">
+        <div class="services-intro reveal">
+          <span class="section-label">02 / Capabilities</span>
+          <h2 class="section-heading">Full-spectrum brand, campaign, and presentation work.</h2>
         </div>
-        <p>This page highlights the kind of identity, presentation, and promotional work I can support, from printed collateral and branded signage to motion content and website-focused design.</p>
+        <div class="reveal">
+          <p>From identity building to practical rollout, I support the pieces that shape how a brand is seen: printed materials, motion content, environmental graphics, websites, and the systems that keep everything visually consistent.</p>
+        </div>
       </div>
 
-      <div class="marketing-showcase-grid">
-        <article class="marketing-tile" tabindex="0">
-          <div class="marketing-tile-media">
+      <div class="services-grid stagger reveal">
+        <article class="services-card">
+          <div class="services-card-num">01</div>
+          <h3>Brand Assets</h3>
+          <p>Identity pieces that set the tone early, including logos, brand image support, typography choices, and repeatable visual systems.</p>
+          <div class="service-tags">
+            <span>Logo Design</span>
+            <span>Visual Systems</span>
+            <span>Brand Image</span>
+          </div>
+        </article>
+
+        <article class="services-card">
+          <div class="services-card-num">02</div>
+          <h3>Print + Signage</h3>
+          <p>Readable, high-impact collateral for physical spaces and first impressions, from business cards and posters to vinyl and site signage.</p>
+          <div class="service-tags">
+            <span>Business Cards</span>
+            <span>Posters</span>
+            <span>Vinyl Signs</span>
+          </div>
+        </article>
+
+        <article class="services-card">
+          <div class="services-card-num">03</div>
+          <h3>Short-Form Motion</h3>
+          <p>Fast, polished social content and promo edits built for attention, clarity, and brand consistency across digital channels.</p>
+          <div class="service-tags">
+            <span>Motion Content</span>
+            <span>Campaign Cuts</span>
+            <span>Social Media</span>
+          </div>
+        </article>
+
+        <article class="services-card">
+          <div class="services-card-num">04</div>
+          <h3>Website Support</h3>
+          <p>Sharper digital presence through cleaner structure, more intentional layout, mobile optimization, and SEO-aware presentation.</p>
+          <div class="service-tags">
+            <span>Responsive Design</span>
+            <span>Landing Pages</span>
+            <span>SEO</span>
+          </div>
+        </article>
+
+        <article class="services-card">
+          <div class="services-card-num">05</div>
+          <h3>Presentation Design</h3>
+          <p>Decks, portfolios, and client-facing documents that organize information clearly while still carrying a strong visual identity.</p>
+          <div class="service-tags">
+            <span>Presentations</span>
+            <span>Portfolios</span>
+            <span>Layout Systems</span>
+          </div>
+        </article>
+
+        <article class="services-card">
+          <div class="services-card-num">06</div>
+          <h3>Visual Direction</h3>
+          <p>A broader design eye for keeping campaigns, graphics, assets, and rollout materials aligned instead of visually fragmented.</p>
+          <div class="service-tags">
+            <span>Art Direction</span>
+            <span>Consistency</span>
+            <span>Execution</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section quote reveal">
+      <blockquote>
+        Marketing should not feel detached from design. Every poster, sign,
+        page, and frame should carry a <em>clear visual logic</em> that makes
+        the work easier to trust.
+      </blockquote>
+      <cite>ANSH SHAH &middot; Brand & Marketing</cite>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section">
+      <div class="services-header">
+        <div class="services-intro reveal">
+          <span class="section-label">03 / Full Capabilities</span>
+          <h2 class="section-heading">Everything I can shape for a brand.</h2>
+        </div>
+        <div class="reveal">
+          <p>The work is not limited to one format. I can support identity, rollout, content, layout, promotion, and the practical systems that hold a brand together across both print and digital touchpoints.</p>
+        </div>
+      </div>
+
+      <div class="capabilities-grid stagger reveal">
+        <div class="capability-item"><span class="capability-dot"></span><span>Brand identity and logo design</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Digital marketing strategy</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Social media management</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Content creation and copywriting</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Short-form video and campaign edits</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Print collateral and signage</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Website layout and landing pages</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>SEO-aware page structure</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Presentation design and pitch decks</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Portfolio formatting and visual systems</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Render post-production and image cleanup</span></div>
+        <div class="capability-item"><span class="capability-dot"></span><span>Campaign graphics and rollout support</span></div>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section">
+      <div class="services-header">
+        <div class="services-intro reveal">
+          <span class="section-label">04 / Process</span>
+          <h2 class="section-heading">How the work gets built.</h2>
+        </div>
+        <div class="reveal">
+          <p>I approach marketing work the same way I approach design work: first understand the problem, then define the system, and then make sure the final output actually performs in the context it is meant for.</p>
+        </div>
+      </div>
+
+      <div class="process-grid stagger reveal">
+        <article class="process-card">
+          <div class="process-card-num">01</div>
+          <h3>Read the Brief</h3>
+          <p>I begin by understanding the audience, the message, and where the piece has to live, whether that is a business card, a website section, a sign, or a campaign post.</p>
+        </article>
+
+        <article class="process-card">
+          <div class="process-card-num">02</div>
+          <h3>Build the System</h3>
+          <p>Typography, spacing, image treatment, and hierarchy get aligned early so the work feels consistent instead of assembled from disconnected parts.</p>
+        </article>
+
+        <article class="process-card">
+          <div class="process-card-num">03</div>
+          <h3>Refine the Output</h3>
+          <p>I develop the final asset with close attention to readability, brand tone, and how the piece performs in the real dimensions and formats it will actually use.</p>
+        </article>
+
+        <article class="process-card">
+          <div class="process-card-num">04</div>
+          <h3>Roll It Out</h3>
+          <p>The goal is a polished deliverable that is ready to be printed, posted, presented, or uploaded without needing a second full redesign later.</p>
+        </article>
+      </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section class="section" id="selected-work">
+      <div class="work-header">
+        <div class="work-intro reveal">
+          <span class="section-label">05 / Selected Work</span>
+          <h2 class="section-heading">Applied pieces built for real visibility.</h2>
+        </div>
+        <div class="reveal">
+          <p>This page highlights the kind of identity, presentation, and promotional work I can support, from printed collateral and branded signage to motion content and website-focused design.</p>
+        </div>
+      </div>
+
+      <div class="showcase-grid stagger reveal">
+        <article class="showcase-card showcase-card--wide">
+          <span class="showcase-card-kicker">Print Collateral</span>
+          <span class="showcase-card-index">01</span>
+          <div class="showcase-card-media">
             <img src="assets/Social%20Media%20Page/Business_Cards.png" alt="Business card collateral sample">
           </div>
-          <div class="marketing-tile-label">
-            <strong>Business Cards</strong>
-            <span>Print Collateral</span>
+          <div class="showcase-card-copy">
+            <h3 class="showcase-card-title">Business Cards</h3>
+            <span class="showcase-card-meta">Print Collateral</span>
           </div>
-          <div class="marketing-tile-overlay">
-            <span>Print Collateral</span>
-            <h3>Business cards</h3>
+          <div class="showcase-card-overlay">
+            <span class="work-kicker">Print Collateral</span>
             <p>Clean, branded business card layouts designed to strengthen first impressions through typography, hierarchy, and a consistent visual identity.</p>
           </div>
         </article>
 
-        <article class="marketing-tile" tabindex="0">
-          <div class="marketing-tile-media">
+        <article class="showcase-card showcase-card--tall">
+          <span class="showcase-card-kicker">Identity</span>
+          <span class="showcase-card-index">02</span>
+          <div class="showcase-card-media">
             <img src="assets/Social%20Media%20Page/Logo.jpg" alt="Logo design sample">
           </div>
-          <div class="marketing-tile-label">
-            <strong>Logo Design</strong>
-            <span>Identity</span>
+          <div class="showcase-card-copy">
+            <h3 class="showcase-card-title">Logo Design</h3>
+            <span class="showcase-card-meta">Identity</span>
           </div>
-          <div class="marketing-tile-overlay">
-            <span>Identity</span>
-            <h3>Logo design</h3>
+          <div class="showcase-card-overlay">
+            <span class="work-kicker">Identity</span>
             <p>Logo concepts and identity assets developed for use across print, digital platforms, signage, and broader brand presentation.</p>
           </div>
         </article>
 
-        <article class="marketing-tile" tabindex="0">
-          <div class="marketing-tile-media">
+        <article class="showcase-card showcase-card--half">
+          <span class="showcase-card-kicker">Motion Content</span>
+          <span class="showcase-card-index">03</span>
+          <div class="showcase-card-media">
             <video
               src="assets/Social%20Media%20Page/Short_Video.mp4"
               aria-label="Short-form video preview"
@@ -137,156 +1732,612 @@
               preload="metadata"
             ></video>
           </div>
-          <div class="marketing-tile-label">
-            <strong>Short-Form Video</strong>
-            <span>Motion Content</span>
+          <div class="showcase-card-copy">
+            <h3 class="showcase-card-title">Short-Form Video</h3>
+            <span class="showcase-card-meta">Motion Content</span>
           </div>
-          <div class="marketing-tile-overlay">
-            <span>Motion Content</span>
-            <h3>Short-form video</h3>
+          <div class="showcase-card-overlay">
+            <span class="work-kicker">Motion Content</span>
             <p>Short-form social content, animated promos, and fast-paced visual edits made to support announcements, campaigns, and online engagement.</p>
           </div>
         </article>
 
-        <article class="marketing-tile" tabindex="0">
-          <div class="marketing-tile-media marketing-tile-media--text">
-            <div class="marketing-service-card">
+        <article class="showcase-card showcase-card--half showcase-card--text">
+          <span class="showcase-card-kicker">Digital Presence</span>
+          <span class="showcase-card-index">04</span>
+          <div class="showcase-card-media">
+            <div class="showcase-service-panel">
               <div>
-                <span class="marketing-eyebrow">Web Services</span>
-                <h3>Websites</h3>
+                <span class="work-kicker">Web Services</span>
+                <h3>WEBSITES</h3>
               </div>
               <p>Website support that focuses on clear structure, brand consistency, readable layouts, and a stronger digital presence for client-facing work.</p>
-              <div class="marketing-service-list" aria-label="Website-related services">
+              <div class="showcase-service-list" aria-label="Website-related services">
                 <span>SEO</span>
                 <span>Ads</span>
                 <span>Responsive Design</span>
                 <span>Landing Pages</span>
-                <span>Brand Image</span>
-                <span>Logos</span>
-                <span>Site Refreshes</span>
                 <span>Content Layouts</span>
-                <span>UI Layouts</span>
                 <span>Analytics</span>
                 <span>Conversion Paths</span>
                 <span>Google Business</span>
-                <span>Social Integration</span>
-                <span>Portfolio Sites</span>
-                <span>Speed Optimization</span>
               </div>
             </div>
           </div>
-          <div class="marketing-tile-label">
-            <strong>Websites</strong>
-            <span>Digital Presence</span>
+          <div class="showcase-card-copy">
+            <h3 class="showcase-card-title">Website Support</h3>
+            <span class="showcase-card-meta">Digital Presence</span>
           </div>
-          <div class="marketing-tile-overlay">
-            <span>Digital Presence</span>
-            <h3>Website support</h3>
+          <div class="showcase-card-overlay">
+            <span class="work-kicker">Digital Presence</span>
             <p>Website design support for branded pages, SEO-aware structure, digital campaigns, layout systems, and online experiences that feel cohesive and professional.</p>
           </div>
         </article>
 
-        <article class="marketing-tile" tabindex="0">
-          <div class="marketing-tile-media">
-            <img src="assets/Social%20Media%20Page/Posters_2.jpg" alt="Second poster design sample">
+        <article class="showcase-card showcase-card--half">
+          <span class="showcase-card-kicker">Editorial Layouts</span>
+          <span class="showcase-card-index">05</span>
+          <div class="showcase-card-media">
+            <img src="assets/Social%20Media%20Page/Posters_2.jpg" alt="Poster design sample">
           </div>
-          <div class="marketing-tile-label">
-            <strong>Posters</strong>
-            <span>Editorial Layouts</span>
+          <div class="showcase-card-copy">
+            <h3 class="showcase-card-title">Posters</h3>
+            <span class="showcase-card-meta">Editorial Layouts</span>
           </div>
-          <div class="marketing-tile-overlay">
-            <span>Editorial Layouts</span>
-            <h3>Poster series</h3>
+          <div class="showcase-card-overlay">
+            <span class="work-kicker">Editorial Layouts</span>
             <p>Editorial poster layouts built for campaigns, announcements, events, or branded storytelling with strong hierarchy and visual rhythm.</p>
           </div>
         </article>
 
-        <article class="marketing-tile" tabindex="0">
-          <div class="marketing-tile-media">
+        <article class="showcase-card showcase-card--half">
+          <span class="showcase-card-kicker">Environmental Graphics</span>
+          <span class="showcase-card-index">06</span>
+          <div class="showcase-card-media">
             <img src="assets/Social%20Media%20Page/Real_Estate_Signs.jpg" alt="Real estate signage sample">
           </div>
-          <div class="marketing-tile-label">
-            <strong>Real Estate Signs</strong>
-            <span>Environmental Graphics</span>
+          <div class="showcase-card-copy">
+            <h3 class="showcase-card-title">Real Estate Signs</h3>
+            <span class="showcase-card-meta">Environmental Graphics</span>
           </div>
-          <div class="marketing-tile-overlay">
-            <span>Environmental Graphics</span>
-            <h3>Real estate signs</h3>
+          <div class="showcase-card-overlay">
+            <span class="work-kicker">Environmental Graphics</span>
             <p>Property and site signage designed for visibility, readability, and strong brand presence across outdoor, sales, and location-based applications.</p>
           </div>
         </article>
       </div>
+    </section>
 
-      <div class="marketing-additional-work" aria-labelledby="marketing-additional-title">
-        <div class="marketing-additional-head">
-          <div>
-            <p class="section-label">Additional Work</p>
-            <h3 id="marketing-additional-title">A wider collage of campaign, brand, and layout work.</h3>
-          </div>
+    <hr class="section-divider">
 
+    <section class="section">
+      <div class="additional-head">
+        <div class="reveal">
+          <span class="section-label">06 / Additional Work</span>
+          <h3>A wider collage of campaign, brand, and layout work.</h3>
         </div>
+        <div class="reveal">
+          <p>These pieces broaden the picture: more campaign assets, content experiments, and branded compositions across multiple formats and aspect ratios.</p>
+        </div>
+      </div>
 
-        <div class="marketing-collage" aria-label="Additional marketing work collage">
-          <figure class="marketing-collage-item" style="--ratio: 1050 / 600; --pad: 0.45rem;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/1.png" alt="Additional marketing work sample 1" loading="lazy">
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 256 / 320;">
-            <video
-              src="assets/Social%20Media%20Page/Additional%20Work/EVERYFRIDAY.mp4"
-              aria-label="Additional marketing work sample 2"
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
-            ></video>
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 899 / 669;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/6.png" alt="Additional marketing work sample 6" loading="lazy">
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 2625 / 3375;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/3.jpg" alt="Additional marketing work sample 3" loading="lazy">
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 719 / 542;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/7.png" alt="Additional marketing work sample 7" loading="lazy">
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 1080 / 1350;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/4.jpg" alt="Additional marketing work sample 4" loading="lazy">
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 1200 / 1800;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/9.png" alt="Additional marketing work sample 9" loading="lazy">
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 500 / 643;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/5.jpg" alt="Additional marketing work sample 5" loading="lazy">
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 336 / 500;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/10.jpg" alt="Additional marketing work sample 10" loading="lazy">
-          </figure>
-          <figure class="marketing-collage-item" style="--ratio: 800 / 1029;">
-            <img src="assets/Social%20Media%20Page/Additional%20Work/8.jpg" alt="Additional marketing work sample 8" loading="lazy">
-          </figure>
+      <div class="media-slider stagger reveal" aria-label="Additional marketing work slider">
+        <div class="media-slider-viewport">
+          <div class="media-slider-track">
+            <figure class="media-slide media-slide--wide">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/1.png" alt="Additional campaign work sample 1" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Campaign Asset</span><span>01</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/2.gif" alt="Animated marketing work sample 2" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Animated Graphic</span><span>02</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait">
+              <div class="media-slide-frame">
+                <video
+                  src="assets/Social%20Media%20Page/Additional%20Work/EVERYFRIDAY.mp4"
+                  aria-label="Additional marketing motion sample"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                ></video>
+              </div>
+              <figcaption class="media-slide-meta"><span>Motion Content</span><span>03</span></figcaption>
+            </figure>
+
+            <figure class="media-slide">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/6.png" alt="Additional campaign work sample 6" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Campaign Layout</span><span>04</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/3.jpg" alt="Additional campaign work sample 3" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Poster Application</span><span>05</span></figcaption>
+            </figure>
+
+            <figure class="media-slide">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/7.png" alt="Additional campaign work sample 7" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Digital Graphic</span><span>06</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/4.jpg" alt="Additional campaign work sample 4" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Social Post</span><span>07</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/9.png" alt="Additional campaign work sample 9" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Brand Layout</span><span>08</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/5.jpg" alt="Additional campaign work sample 5" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Print Graphic</span><span>09</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/10.jpg" alt="Additional campaign work sample 10" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Story Layout</span><span>10</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/8.jpg" alt="Additional campaign work sample 8" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Editorial Post</span><span>11</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--wide" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/1.png" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Campaign Asset</span><span>01</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/2.gif" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Animated Graphic</span><span>02</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait" aria-hidden="true">
+              <div class="media-slide-frame">
+                <video
+                  src="assets/Social%20Media%20Page/Additional%20Work/EVERYFRIDAY.mp4"
+                  aria-label="Duplicate additional marketing motion sample"
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                ></video>
+              </div>
+              <figcaption class="media-slide-meta"><span>Motion Content</span><span>03</span></figcaption>
+            </figure>
+
+            <figure class="media-slide" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/6.png" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Campaign Layout</span><span>04</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/3.jpg" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Poster Application</span><span>05</span></figcaption>
+            </figure>
+
+            <figure class="media-slide" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/7.png" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Digital Graphic</span><span>06</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/4.jpg" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Social Post</span><span>07</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/9.png" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Brand Layout</span><span>08</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/5.jpg" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Print Graphic</span><span>09</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/10.jpg" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Story Layout</span><span>10</span></figcaption>
+            </figure>
+
+            <figure class="media-slide media-slide--portrait" aria-hidden="true">
+              <div class="media-slide-frame">
+                <img src="assets/Social%20Media%20Page/Additional%20Work/8.jpg" alt="" loading="lazy">
+              </div>
+              <figcaption class="media-slide-meta"><span>Editorial Post</span><span>11</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="cta-section reveal">
+        <div class="cta-text">
+          <span class="section-label">07 / Next Step</span>
+          <h2>Let's build something clear, sharp, and client-ready.</h2>
+          <p>If you need visual direction, campaign support, print assets, or a more cohesive digital presence, I’d like to hear what you’re building.</p>
+        </div>
+        <div class="cta-actions">
+          <a href="mailto:ansh-shah@outlook.com" class="btn filled">Get in Touch</a>
+          <a href="https://www.linkedin.com/in/ansh-shah-31157129a/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+          <a href="portfolio.html" class="btn">Architecture Portfolio</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="site-footer__brand">
-      <p class="site-footer__eyebrow">Ansh Shah</p>
-      <p class="site-footer__note">Branding, marketing visuals, websites, and client-facing design support.</p>
+  <footer class="site-footer reveal">
+    <div class="footer-left">
+      <p>ANSH SHAH &middot; Brand & Marketing</p>
+      <span>Client-facing design support &middot; Toronto / Ottawa &middot; 2028</span>
     </div>
-    <div class="site-footer__nav">
-      <a href="index.html">Home</a>
+    <div class="footer-right">
+      <a href="index.html#work">Work</a>
       <a href="portfolio.html">Portfolio</a>
       <a href="resume.html">Resume</a>
-    </div>
-    <div class="site-footer__meta">
       <a href="mailto:ansh-shah@outlook.com">ansh-shah@outlook.com</a>
-      <a href="https://www.linkedin.com/in/ansh-shah-31157129a/" target="_blank" rel="noreferrer">LinkedIn</a>
-      <span>&copy; 2026 Ottawa / Toronto</span>
+      <a href="https://www.linkedin.com/in/ansh-shah-31157129a/" target="_blank" rel="noopener">LinkedIn</a>
+      <span>© 2028 Toronto / Ottawa</span>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    (function initHeroCanvas() {
+      const hero = document.querySelector('.hero');
+      const canvas = document.getElementById('hero-canvas');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!hero || !canvas || reduceMotion) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      function Oscillator(options) {
+        this.init(options || {});
+      }
+
+      Oscillator.prototype = {
+        init: function (options) {
+          this.phase = options.phase || 0;
+          this.offset = options.offset || 0;
+          this.frequency = options.frequency || 0.001;
+          this.amplitude = options.amplitude || 1;
+          this.current = this.offset;
+        },
+        update: function () {
+          this.phase += this.frequency;
+          this.current = this.offset + Math.sin(this.phase) * this.amplitude;
+          return this.current;
+        },
+        value: function () {
+          return this.current;
+        }
+      };
+
+      function Node() {
+        this.x = 0;
+        this.y = 0;
+        this.vx = 0;
+        this.vy = 0;
+      }
+
+      const pointer = { x: 0, y: 0, active: false };
+      const settings = {
+        friction: 0.5,
+        trails: 32,
+        size: 44,
+        dampening: 0.025,
+        tension: 0.99
+      };
+
+      let hue = new Oscillator({
+        phase: Math.random() * Math.PI * 2,
+        amplitude: 18,
+        frequency: 0.0015,
+        offset: 34
+      });
+      let lines = [];
+
+      function Line(options) {
+        this.init(options || {});
+      }
+
+      Line.prototype = {
+        init: function (options) {
+          this.spring = options.spring + 0.1 * Math.random() - 0.05;
+          this.friction = settings.friction + 0.01 * Math.random() - 0.005;
+          this.nodes = [];
+
+          for (let i = 0; i < settings.size; i += 1) {
+            const node = new Node();
+            node.x = pointer.x;
+            node.y = pointer.y;
+            this.nodes.push(node);
+          }
+        },
+        update: function () {
+          let spring = this.spring;
+          let node = this.nodes[0];
+
+          node.vx += (pointer.x - node.x) * spring;
+          node.vy += (pointer.y - node.y) * spring;
+
+          for (let i = 0; i < this.nodes.length; i += 1) {
+            node = this.nodes[i];
+
+            if (i > 0) {
+              const prev = this.nodes[i - 1];
+              node.vx += (prev.x - node.x) * spring;
+              node.vy += (prev.y - node.y) * spring;
+              node.vx += prev.vx * settings.dampening;
+              node.vy += prev.vy * settings.dampening;
+            }
+
+            node.vx *= this.friction;
+            node.vy *= this.friction;
+            node.x += node.vx;
+            node.y += node.vy;
+            spring *= settings.tension;
+          }
+        },
+        draw: function () {
+          let a;
+          let b;
+          let x = this.nodes[0].x;
+          let y = this.nodes[0].y;
+
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+
+          for (let i = 1; i < this.nodes.length - 2; i += 1) {
+            a = this.nodes[i];
+            b = this.nodes[i + 1];
+            x = 0.5 * (a.x + b.x);
+            y = 0.5 * (a.y + b.y);
+            ctx.quadraticCurveTo(a.x, a.y, x, y);
+          }
+
+          a = this.nodes[this.nodes.length - 2];
+          b = this.nodes[this.nodes.length - 1];
+          ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
+          ctx.stroke();
+          ctx.closePath();
+        }
+      };
+
+      function buildLines() {
+        lines = [];
+        for (let i = 0; i < settings.trails; i += 1) {
+          lines.push(new Line({ spring: 0.45 + (i / settings.trails) * 0.025 }));
+        }
+      }
+
+      function setPointerPosition(clientX, clientY) {
+        const rect = hero.getBoundingClientRect();
+        pointer.x = clientX - rect.left;
+        pointer.y = clientY - rect.top;
+      }
+
+      function resizeCanvas() {
+        const rect = hero.getBoundingClientRect();
+        canvas.width = Math.max(1, Math.floor(rect.width));
+        canvas.height = Math.max(1, Math.floor(rect.height));
+
+        if (!pointer.active) {
+          pointer.x = rect.width * 0.5;
+          pointer.y = rect.height * 0.58;
+        }
+
+        buildLines();
+      }
+
+      function render() {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.strokeStyle = 'hsla(' + Math.round(hue.update()) + ', 100%, 66%, 0.03)';
+        ctx.lineWidth = 9;
+
+        for (let i = 0; i < settings.trails; i += 1) {
+          const line = lines[i];
+          line.update();
+          line.draw();
+        }
+
+        window.requestAnimationFrame(render);
+      }
+
+      hero.addEventListener('mousemove', function (event) {
+        pointer.active = true;
+        setPointerPosition(event.clientX, event.clientY);
+      });
+
+      hero.addEventListener('mouseenter', function (event) {
+        pointer.active = true;
+        setPointerPosition(event.clientX, event.clientY);
+        buildLines();
+      });
+
+      hero.addEventListener('mouseleave', function () {
+        pointer.active = false;
+        pointer.x = canvas.width * 0.5;
+        pointer.y = canvas.height * 0.58;
+      });
+
+      hero.addEventListener('touchstart', function (event) {
+        if (!event.touches.length) return;
+        pointer.active = true;
+        setPointerPosition(event.touches[0].clientX, event.touches[0].clientY);
+        buildLines();
+      }, { passive: true });
+
+      hero.addEventListener('touchmove', function (event) {
+        if (!event.touches.length) return;
+        setPointerPosition(event.touches[0].clientX, event.touches[0].clientY);
+      }, { passive: true });
+
+      window.addEventListener('resize', resizeCanvas);
+
+      resizeCanvas();
+      render();
+    })();
+
+    (function initNavigation() {
+      const nav = document.getElementById('nav');
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+      function closeMenu() {
+        if (!hamburger || !mobileMenu) return;
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('active');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      window.addEventListener('scroll', function () {
+        const y = window.scrollY;
+        nav.classList.toggle('is-scrolled', y > 20);
+      }, { passive: true });
+
+      if (hamburger && mobileMenu) {
+        hamburger.addEventListener('click', function () {
+          const isActive = hamburger.classList.toggle('active');
+          hamburger.setAttribute('aria-expanded', String(isActive));
+          mobileMenu.classList.toggle('active', isActive);
+          mobileMenu.setAttribute('aria-hidden', String(!isActive));
+          document.body.style.overflow = isActive ? 'hidden' : '';
+        });
+
+        mobileLinks.forEach(function (link) {
+          link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') closeMenu();
+        });
+
+        window.addEventListener('resize', function () {
+          if (window.innerWidth > 980) closeMenu();
+        });
+      }
+    })();
+
+    (function initReveal() {
+      const revealEls = document.querySelectorAll('.reveal, .stagger');
+      if (!revealEls.length) return;
+
+      if (!('IntersectionObserver' in window)) {
+        revealEls.forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.08 });
+
+      revealEls.forEach(function (el) { observer.observe(el); });
+    })();
+
+    (function initAutoplayVideos() {
+      const autoplayVideos = document.querySelectorAll('video[autoplay]');
+      if (!autoplayVideos.length) return;
+
+      function replaceWithFallback(video) {
+        const fallbackSrc = video.dataset.fallbackImage;
+        if (!fallbackSrc || video.dataset.fallbackApplied === 'true') return;
+
+        const image = document.createElement('img');
+        image.src = fallbackSrc;
+        image.alt = video.getAttribute('aria-label') || '';
+        image.loading = 'eager';
+        image.decoding = 'async';
+        video.dataset.fallbackApplied = 'true';
+        video.replaceWith(image);
+      }
+
+      function tryPlay(video) {
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function (error) {
+            if (error && error.name === 'NotSupportedError') {
+              replaceWithFallback(video);
+            }
+          });
+        }
+      }
+
+      autoplayVideos.forEach(function (video) {
+        video.muted = true;
+        video.defaultMuted = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        if (video.hasAttribute('loop')) video.loop = true;
+
+        video.addEventListener('error', function () { replaceWithFallback(video); }, { once: true });
+
+        if (video.readyState >= 2) {
+          tryPlay(video);
+        } else {
+          video.addEventListener('loadeddata', function () { tryPlay(video); }, { once: true });
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
+

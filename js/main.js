@@ -294,16 +294,13 @@ function initSmoothScroll() {
 function initNavScroll() {
   const nav = document.querySelector('.sticky-nav');
   if (!nav) return;
-  
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      nav.style.background = 'rgba(245, 242, 237, 0.95)';
-      nav.style.backdropFilter = 'blur(10px)';
-    } else {
-      nav.style.background = 'var(--bg)';
-      nav.style.backdropFilter = 'none';
-    }
-  });
+
+  const updateNav = () => {
+    nav.classList.toggle('is-scrolled', window.scrollY > 12);
+  };
+
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive: true });
 }
 
 /**

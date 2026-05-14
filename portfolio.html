@@ -13,8 +13,51 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    body.portfolio-page {
+      background: #ffffff;
+    }
+
+    .portfolio-page main {
+      background: #ffffff;
+    }
+
+    .portfolio-page .flipbook-section {
+      background: #ffffff;
+    }
+
+    .portfolio-page .flipbook-header {
+      color: var(--ink);
+    }
+
+    .portfolio-page .flipbook-arrow {
+      border-color: rgba(26, 26, 24, 0.18);
+      background: rgba(26, 26, 24, 0.03);
+      color: var(--ink);
+    }
+
+    .portfolio-page .flipbook-arrow:disabled:hover {
+      border-color: rgba(26, 26, 24, 0.18);
+      background: rgba(26, 26, 24, 0.03);
+      color: var(--ink);
+    }
+
+    .portfolio-page .portfolio-progress {
+      color: var(--ink);
+    }
+
+    .portfolio-page .portfolio-progress input[type="range"]::-webkit-slider-thumb,
+    .portfolio-page .portfolio-progress input[type="range"]::-moz-range-thumb {
+      background: #ffffff;
+    }
+
+    .portfolio-page .progress-meta,
+    .portfolio-page .flipbook-hint {
+      color: rgba(26, 26, 24, 0.58);
+    }
+  </style>
 </head>
-<body>
+<body class="portfolio-page">
 
   <!-- Navigation -->
   <nav class="sticky-nav">
@@ -47,7 +90,7 @@
     <section class="flipbook-section">
       <div class="flipbook-header">
         <p class="hero-label">- Architecture Portfolio</p>
-        <h2>Ansh Shah / 2026</h2>
+        <h2>Ansh Shah / 2028</h2>
       </div>
 
       <div id="loading-state" class="portfolio-loading">
@@ -91,7 +134,7 @@
     <div class="site-footer__meta">
       <a href="mailto:ansh-shah@outlook.com">ansh-shah@outlook.com</a>
       <a href="https://www.linkedin.com/in/ansh-shah-31157129a/" target="_blank" rel="noreferrer">LinkedIn</a>
-      <span>&copy; 2026 Ottawa / Toronto</span>
+      <span>&copy; 2028 Toronto / Ottawa</span>
     </div>
   </footer>
 
